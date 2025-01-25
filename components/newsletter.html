@@ -1,16 +1,132 @@
 <section class="py-5 bg-light text-center">
   <div class="newsletter">
-  <h3>Suscríbete a nuestro boletín</h3>
-  <p>Recibe las últimas novedades y ofertas especiales en tu correo.</p>
-  <form class="d-flex justify-content-center mt-3">
-      <input type="email" class="form-control w-50" placeholder="Ingresa tu correo">
+    <h3>Suscríbete a nuestro boletín</h3>
+    <p>Recibe las últimas novedades y ofertas especiales en tu correo.</p>
+    <form class="d-flex justify-content-center mt-3" id="newsletter-form">
+      <input type="email" class="form-control w-50" id="email" placeholder="Ingresa tu correo" required>
       <button type="submit" class="btn btn-primary ms-3">Suscribirme</button>
-  </form>
-</div>
-  <style>
-    .newsletter{
-      margin:2em 2em;
-    }
-  </style>
+    </form>
+  </div>
 </section>
-  
+
+<!-- Modal de Confirmación -->
+<div class="modal" tabindex="-1" id="confirmationModal" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">¡Gracias por suscribirte!</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="closeModal()"></button>
+      </div>
+      <div class="modal-body">
+        <p>Hemos recibido tu solicitud. Revisa tu correo electrónico para más detalles.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="closeModal()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Estilos -->
+<style>
+  .newsletter {
+    margin: 2em;
+  }
+
+  .newsletter h3 {
+    font-size: 1.8em;
+    color: #333;
+    font-weight: bold;
+  }
+
+  .newsletter p {
+    color: #666;
+    font-size: 1.1em;
+  }
+
+  .newsletter form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .newsletter input[type="email"] {
+    width: 50%;
+    padding: 0.75rem;
+    font-size: 1em;
+  }
+
+  .newsletter button {
+    padding: 0.75rem 1.5rem;
+    font-size: 1em;
+  }
+
+  .newsletter button:hover {
+    background-color: #004085;
+    border-color: #003366;
+  }
+
+  /* Estilos para el modal */
+  .modal {
+    display: none; /* oculto por defecto */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1050;
+  }
+
+  .modal-dialog {
+    max-width: 500px;
+    margin: 1.75rem auto;
+  }
+
+  .modal-content {
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .modal-header {
+    border-bottom: 1px solid #ccc;
+    padding: 1rem;
+  }
+
+  .modal-body {
+    padding: 1.5rem;
+  }
+
+  .modal-footer {
+    padding: 1rem;
+    text-align: right;
+  }
+</style>
+
+<!-- Script para mostrar el modal -->
+<script>
+  // Función para abrir el modal
+  function openModal() {
+    document.getElementById('confirmationModal').style.display = 'flex';
+  }
+
+  // Función para cerrar el modal
+  function closeModal() {
+    document.getElementById('confirmationModal').style.display = 'none';
+  }
+
+  // Manejar el envío del formulario
+  document.getElementById('newsletter-form').addEventListener('submit', function (e) {
+    e.preventDefault(); // Evita el comportamiento por defecto del formulario (recarga de la página)
+
+    // Aquí podrías agregar la lógica para enviar los datos del formulario (por ejemplo, a través de AJAX o una llamada a un backend)
+
+    // Mostrar el modal de confirmación
+    openModal();
+  });
+</script>

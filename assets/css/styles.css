@@ -1,0 +1,60 @@
+/*Estilos migas de pan*/
+/* Estilos para las migas de pan */
+nav[aria-label="breadcrumb"] {
+    padding: 10px 15px;
+}
+
+.breadcrumb {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+
+.breadcrumb-item {
+    margin-right: 10px;
+}
+
+.breadcrumb-link {
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+/* Estilo para el enlace de la primera página (inicio) */
+.breadcrumb-item:first-child .breadcrumb-link {
+    color: #6c757d; /* Gris para la primera página */
+}
+
+.breadcrumb-item:first-child .breadcrumb-link:hover {
+    color: #5a6268; /* Gris oscuro para hover */
+}
+
+/* Estilo para el enlace de la página actual */
+.breadcrumb-item.active .breadcrumb-link {
+    color: #336B56; /* Verde de la compañía */
+}
+
+/* Estilo general para los enlaces de las páginas intermedias */
+.breadcrumb-item:not(:first-child):not(.active) .breadcrumb-link {
+    color: #6c757d; /* Gris para los enlaces intermedios */
+}
+
+.breadcrumb-item:not(:first-child):not(.active) .breadcrumb-link:hover {
+    color: #5a6268; /* Gris oscuro para hover */
+}
+
+
+.breadcrumb-item + .breadcrumb-item::before {
+    content: "›";
+    margin: 0 8px;
+    color: #6c757d;
+}
+
+.breadcrumb-item.active {
+    color: #6c757d; /* Gris para la página actual */
+}
+
+/*Fin Estilos migas de pan*/

@@ -1,6 +1,6 @@
 <?php
 $host = 'localhost';
-$dbname = 'findTheBeat';
+$dbname = 'findthebeat';
 $username = 'root';
 
 try {

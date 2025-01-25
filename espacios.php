@@ -59,6 +59,7 @@ if (isset($_GET['ajax'])) {
   </ol>
 </nav>
 
+
 <!-- Filtros -->
 <div class="filtros container my-4">
     <div class="row justify-content-center">
@@ -85,10 +86,10 @@ if (isset($_GET['ajax'])) {
 </div>
 
 <!-- Contenedor de espacios -->
-<div id="spaces" class="container mt-4 row">
+<div id="spaces" class="espacios container my-4 col-12 row">
     <?php foreach ($spaces as $space): ?>
-        <div class="col-md-4 col-sm-6 mb-4"> 
-            <div class="card">
+        <div class="col-lg-4 col-md-6 col-12 mb-4"> 
+            <div class="card" style="width: 100%; max-width: 450px;">
                 <img src="<?php echo htmlspecialchars($space['imagen']); ?>" class="card-img-top" alt="Imagen de <?php echo htmlspecialchars($space['titulo']); ?>">
                 <div class="card-body">
                     <h5 class="card-title"><?php echo htmlspecialchars($space['titulo']); ?></h5>
@@ -121,6 +122,10 @@ if (isset($_GET['ajax'])) {
     .card:hover {
         transform: translateY(-8px); /* Se mueve ligeramente hacia arriba */
         box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.30); /* Sombra más pronunciada */
+    }
+
+    .espacios {
+        margin-left: 3em;
     }
 </style>
 </body>
