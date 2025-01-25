@@ -54,7 +54,7 @@
                 <p>Conectamos músicos con espacios y oportunidades únicas.</p>
             </div>
             <div class="col-md-4">
-                <img src="assets/images/innovacion.png" alt="Innovación" class="img-fluid mb-3" style="max-width: 350px;">
+                <img src="assets/images/innovacion.jpg" alt="Innovación" class="img-fluid mb-3" style="max-width: 350px;">
                 <h5>Innovación</h5>
                 <p>Facilitamos la reserva de espacios con tecnología avanzada.</p>
             </div>
