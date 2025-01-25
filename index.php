@@ -15,8 +15,8 @@ include './components/header.php';
 <body>
     <div id="carousel"></div> 
 
-    <div id="destacados"></div>
-    <div id="newsletter"></div> <!-- Aquí se cargará el formulario de Newsletter -->
+    <?php include './components/destacados.php'; ?>
+    <div id="newsletter"></div> <!-- Aquí se phcargará el formulario de Newsletter -->
     <div id="footer"></div> <!-- Aquí se cargará el Footer -->
     <div id="arrowup"></div>
     
