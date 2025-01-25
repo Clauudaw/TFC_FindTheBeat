@@ -1,19 +1,95 @@
-<footer class="footer text-center">
-    <div class="container d-flex flex-column justify-content-center align-items-center h-100">
-      <p>© 2024-2025 Find The Beat, Todos los derechos reservados.</p>
-      <ul class="list-unstyled d-flex justify-content-center">
-        <li class="ms-3"><a href="#">Facebook</a></li>
-        <li class="ms-3"><a href="#">Instagram</a></li>
-        <li class="ms-3"><a href="#">Twitter</a></li>
-      </ul>
+<footer class="footer">
+  <div class="container">
+    <div class="row">
+      <!-- Columna 1: Enlaces -->
+      <div class="col-md-4 text-center text-md-start">
+        <h5>Find The Beat</h5>
+        <ul class="list-unstyled">
+          <li><a href="/">Inicio</a></li>
+          <li><a href="/espacios.php">Explorar espacios</a></li>
+          <li><a href="/contacto.php">Contacto</a></li>
+          <li><a href="/sobre_nosotros.php">Sobre nosotros</a></li>
+        </ul>
+      </div>
+
+      <!-- Columna 2: Logo -->
+      <div class="col-md-4 text-center"><a href="/index.php">
+        <img src="assets\images\logo_FindTheBeat.png" alt="Find The Beat Logo" class="logo-find-the-beat">
+      </a>
+      </div>
+
+      <!-- Columna 3: Derechos reservados -->
+      <div class="col-md-4 text-center text-md-end">
+        <p>© 2024-2025 Find The Beat</p>
+        <p>Todos los derechos reservados.</p>
+        <p>Realizado por: Claudia Rey Benito</p>
+        <ul class="redes_sociales list-unstyled d-flex justify-content-center">
+          <li class="ms-3">
+            <a href="#"><svg class="social-icon" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 350 150">
+              <g fill="#ffffff"><g transform="scale(5.12,5.12)"><path d="M41,4h-32c-2.76,0 -5,2.24 -5,5v32c0,2.76 2.24,5 5,5h32c2.76,0 5,-2.24 5,-5v-32c0,-2.76 -2.24,-5 -5,-5zM37,19h-2c-2.14,0 -3,0.5 -3,2v3h5l-1,5h-4v15h-5v-15h-4v-5h4v-3c0,-4 2,-7 6,-7c2.9,0 4,1 4,1z"></path></g></g>
+            </svg></a>
+          </li>
+          <li class="ms-3">
+            <a href="#"><svg class="social-icon" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 350 150">
+              <g fill="#ffffff"><g transform="scale(5.12,5.12)"><path d="M16,3c-7.17,0 -13,5.83 -13,13v18c0,7.17 5.83,13 13,13h18c7.17,0 13,-5.83 13,-13v-18c0,-7.17 -5.83,-13 -13,-13zM37,11c1.1,0 2,0.9 2,2c0,1.1 -0.9,2 -2,2c-1.1,0 -2,-0.9 -2,-2c0,-1.1 0.9,-2 2,-2zM25,14c6.07,0 11,4.93 11,11c0,6.07 -4.93,11 -11,11c-6.07,0 -11,-4.93 -11,-11c0,-6.07 4.93,-11 11,-11z"></path></g></g>
+            </svg></a>
+          </li>
+          <li class="ms-3">
+            <a href="#"><svg class="social-icon" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 350 150">
+              <g fill="#ffffff"><g transform="scale(5.12,5.12)"><path d="M11,4c-3.866,0 -7,3.134 -7,7v28c0,3.866 3.134,7 7,7h28c3.866,0 7,-3.134 7,-7v-28c0,-3.866 -3.134,-7 -7,-7zM13.08594,13h7.9375l5.63672,8.00977l6.83984,-8.00977h2.5l-8.21094,9.61328l10.125,14.38672h-7.93555l-6.54102,-9.29297l-7.9375,9.29297h-2.5l9.30859,-10.89648z"></path></g></g>
+            </svg></a>
+          </li>
+        </ul>
+      </div>
     </div>
-  </footer>
-  
-  <style>
-  .footer {
-    background-color: #8b8b8b;
-    padding: 1rem 0;
-    margin-top: auto; 
-  }
-  </style>
-  
+  </div>
+</footer>
+
+<style>
+.footer {
+  background-color: #3D8168;
+  color: white;
+  padding: 2rem 0;
+  margin-top: auto;
+}
+
+.footer .col-md-4.text-md-end p {
+  margin-bottom: 0.2rem; /* Reduce el espacio entre frases */
+}
+
+.footer .col-md-4.text-md-end .redes_sociales {
+  justify-content: center !important; /* Asegura que los iconos estén centrados */
+}
+
+.footer .logo-find-the-beat {
+  max-width: 150px; /* Ajusta el tamaño del logo */
+  height: auto;
+}
+
+.footer a {
+  color: white;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.footer ul {
+  padding: 0;
+}
+
+.footer ul li {
+  list-style: none;
+}
+
+.footer svg {
+  width: 40px;
+  height: 40px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.footer svg:hover {
+  transform: scale(1.1);
+}
+</style>
