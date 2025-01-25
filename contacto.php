@@ -18,7 +18,7 @@ session_start();
         <div class="row align-items-center">
             <!-- Imagen a la izquierda -->
             <div class="col-md-6 mb-4 mb-md-0">
-                <img src="assets/img/contacto.jpg" alt="Contáctanos" class="img-fluid rounded shadow">
+                <img src="/assets/images/contacto.jpg" alt="Contáctanos" class="img-fluid rounded shadow">
             </div>
             
             <!-- Formulario a la derecha -->
@@ -54,5 +54,25 @@ session_start();
     <!-- Bootstrap JS -->
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/app.js"></script>
+    <style>
+        /* Estilos adicionales para el formulario */
+form {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Botón verde personalizado */
+.btn-success {
+    background-color: #3D8168;
+    border: none;
+}
+
+.btn-success:hover {
+    background-color: #2b5e4c;
+}
+
+    </style>
 </body>
 </html>
