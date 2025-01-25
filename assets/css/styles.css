@@ -58,3 +58,57 @@ nav[aria-label="breadcrumb"] {
 }
 
 /*Fin Estilos migas de pan*/
+
+/*Estilos paneles de control*/
+.list-group-item.active {
+    background-color: #3D8168 !important;
+    border-color: #346e59 !important;
+    color: white !important;
+}
+
+/*Fin estilos paneles de control*/
+
+/*Estilos inputs de formularios*/
+.form-control:focus {
+    border-color: #3D8168 !important;
+    box-shadow: 0 0 5px rgba(61, 129, 104, 0.5) !important;
+    outline: none !important;
+}
+
+/* Estilo normal del select */
+.form-select {
+    border: 1px solid #3D8168; /* Borde con el color de la empresa */
+    transition: all 0.3s ease-in-out;
+}
+
+/* Cambiar color al hacer hover */
+.form-select:hover {
+    border-color: #3D8168;
+    box-shadow: 0 0 5px rgba(61, 129, 104, 0.5);
+}
+
+/* Cambiar color cuando está seleccionado */
+.form-select:focus {
+    border-color: #3D8168;
+    box-shadow: 0 0 8px rgba(61, 129, 104, 0.75);
+}
+
+/* Cambiar color del fondo del select cuando está activo */
+.form-select:active {
+    background-color: #E8F5E9;
+}
+
+/* Opcional: Cambiar el color del texto */
+.form-select option {
+    color: black;
+    background-color: white;
+}
+
+/* Intento de cambiar el hover en options (limitado en navegadores) */
+.form-select option:hover {
+    background-color: #3D8168 !important;
+    color: white;
+}
+
+
+/*Fin estilos inputs de formularios*/

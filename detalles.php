@@ -87,10 +87,7 @@ for ($i = 1; $i <= 6; $i++) {
     </style>
 </head>
 <body>
-<?php
-session_start();
-include 'header.php';
-?>
+<?php include './components/header.php'; ?>
 <br>
     <div class="container mt-4">
         <h1 class="text-center mb-4"><?php echo htmlspecialchars($space['titulo']); ?></h1>

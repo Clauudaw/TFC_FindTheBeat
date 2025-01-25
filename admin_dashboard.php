@@ -37,7 +37,6 @@ $bookings = fetchAll($db, 'bookings');
 
 <div class="container mt-5">
     <h2>Bienvenido al Panel de Administración</h2>
-    <p>Has iniciado sesión correctamente como administrador.</p>
 
     <div class="row mt-4">
         <div class="col-md-3">
@@ -82,7 +81,7 @@ $bookings = fetchAll($db, 'bookings');
                             <?php endforeach; ?>
                         </tbody>
                     </table>
-                </div>
+                
 
                 <!-- Formulario para Crear Usuario -->
                 <h4>Crear Usuario</h4>
@@ -148,7 +147,7 @@ $bookings = fetchAll($db, 'bookings');
                             <?php endforeach; ?>
                         </tbody>
                     </table>
-                </div>
+                
                 
                 <!-- Formulario para Crear Espacio -->
                 <h4>Crear Espacio</h4>
@@ -226,7 +225,7 @@ $bookings = fetchAll($db, 'bookings');
                             <?php endforeach; ?>
                         </tbody>
                     </table>
-                </div>
+                
 
                 <!-- Formulario para añadir una nueva reseña -->
 <div class="mt-4">
@@ -250,6 +249,7 @@ $bookings = fetchAll($db, 'bookings');
         </div>
         <button type="submit" class="btn btn-primary">Añadir Reseña</button>
     </form>
+</div>
 </div>
 
                 
@@ -305,7 +305,7 @@ $bookings = fetchAll($db, 'bookings');
                             <?php endforeach; ?>
                         </tbody>
                     </table>
-                </div>
+                
 
                 <!-- Formulario para añadir una nueva reserva -->
 <div class="mt-4">
@@ -374,11 +374,9 @@ $bookings = fetchAll($db, 'bookings');
         <button type="submit" class="btn btn-primary">Añadir Reserva</button>
     </form>
 </div>
-
-            </div>
-        </div>
-    </div>
 </div>
+
+
 
 <!-- Bootstrap JS -->
 <script src="assets/js/bootstrap.bundle.min.js"></script>
