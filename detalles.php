@@ -44,6 +44,7 @@ for ($i = 1; $i <= 6; $i++) {
     <title>Detalles - <?php echo htmlspecialchars($space['titulo']); ?></title>
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <style>
         .detalle-container {
             display: flex;
@@ -89,6 +90,14 @@ for ($i = 1; $i <= 6; $i++) {
 <body>
 <?php include './components/header.php'; ?>
 <br>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/index.php" class="breadcrumb-link">Inicio</a></li>
+    <li class="breadcrumb-item"><a href="/espacios.php" class="breadcrumb-link">Explorar Espacios</a></li>
+    <li class="breadcrumb-item active" aria-current="page"><a href="#" class="breadcrumb-link"><?php echo htmlspecialchars($space['titulo']); ?></a></li>
+  </ol>
+</nav>
+
     <div class="container mt-4">
         <h1 class="text-center mb-4"><?php echo htmlspecialchars($space['titulo']); ?></h1>
         
