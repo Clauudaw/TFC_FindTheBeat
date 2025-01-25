@@ -112,3 +112,36 @@ nav[aria-label="breadcrumb"] {
 
 
 /*Fin estilos inputs de formularios*/
+
+/*scrollbar*/
+/* Scrollbar en navegadores basados en WebKit (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+    width: 30px; /* Ancho de la barra vertical */
+    height: 10px; /* Alto de la barra horizontal (si aplica) */
+}
+
+/* Fondo del scrollbar */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Color de fondo */
+    border-radius: 5px; /* Bordes redondeados */
+}
+
+/* Color y diseño del thumb (la parte desplazable) */
+::-webkit-scrollbar-thumb {
+    background: #3D8168; /* Color de la empresa */
+    border-radius: 5px; /* Bordes redondeados */
+    border: 2px solid #f1f1f1; /* Borde opcional para destacar */
+}
+
+/* Hover en el thumb */
+::-webkit-scrollbar-thumb:hover {
+    background: #2b5e4c; /* Un tono más oscuro para efecto visual */
+}
+
+/* Scrollbar en Firefox */
+* {
+    scrollbar-width: thin; /* Hace el scrollbar más delgado */
+    scrollbar-color: #3D8168 #f1f1f1; /* thumb | track */
+}
+
+/*Fin scrollbar*/
