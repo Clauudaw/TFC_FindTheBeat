@@ -1,5 +1,5 @@
 <?php
-include 'db.php';
+include './db.php';
 include './components/header.php';
 
 // Obtener los espacios destacados (IDs 1, 5 y 9)
