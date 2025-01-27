@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const sections = {
         header: '/components/header.php',
         footer: '/components/footer.html',
-        newsletter: '/components/newsletter.html',
+        newsletter: '/components/newsletter.php',
         arrowup: '/components/arrowup.html',
         destacados: '/components/destacados.php',
         carousel: '/components/carousel.html' // Se inicializa el carrusel después de cargar

@@ -57,12 +57,36 @@ $featuredSpaces = $stmt->fetchAll(PDO::FETCH_ASSOC);
         border-radius: 10px;
         box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
         transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+        display: flex;
+        flex-direction: column;
+        height: 100%; /* Hace que todas las tarjetas tengan la misma altura */
+    }
+    .card-body {
+        flex-grow: 1; /* Hace que el contenido crezca para llenar el espacio disponible */
+        display: flex;
+        flex-direction: column;
+    }
+    .card-body .btn {
+        margin-top: auto; /* Hace que el botón se empuje hacia el fondo de la tarjeta */
     }
     .card:hover {
         transform: translateY(-8px);
         box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.30);
     }
+
+    /* Asegurarse de que las tarjetas tengan al menos la misma altura */
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    /* Opcional: Poner un mínimo de altura para las tarjetas */
+    .card {
+        min-height: 350px;
+    }
 </style>
+
+
 
 </body>
 </html>

@@ -10,8 +10,7 @@
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
-    <?php include_once './components/header.php' ?>
-
+    <?php include_once './components/header.php'; ?>
     <div class="container my-5">
         <div class="row align-items-center">
             <h2 class="mb-3 text-center custom-title">¿Tienes alguna duda? Contáctanos</h2>
@@ -31,25 +30,30 @@
                 <form id="contactForm" class="contacto">
                     <div class="mb-3">
                         <label for="name" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" id="name" name="name" required>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Ingresa tu nombre">
+                        <span id="nameError" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Correo Electrónico</label>
-                        <input type="email" class="form-control" id="email" name="email" required>
+                        <input type="text" class="form-control" id="email" name="email" placeholder="Ingresa tu correo electrónico">
+                        <span id="emailError" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
                         <label for="subject" class="form-label">Asunto</label>
-                        <input type="text" class="form-control" id="subject" name="subject" required>
+                        <input type="text" class="form-control" id="subject" name="subject" placeholder="Indica el asunto">
+                        <span id="subjectError" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
                         <label for="message" class="form-label">Mensaje</label>
-                        <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
+                        <textarea class="form-control" id="message" name="message" rows="4" placeholder="Escribe tu mensaje"></textarea>
+                        <span id="messageError" class="text-danger"></span>
                     </div>
                     <button type="submit" class="btn btn-success w-100">Enviar Mensaje</button>
                 </form>
             </div>
         </div>
     </div>
+
 
     <!-- Modal de confirmación -->
     <div class="modal fade" id="thankYouModal" tabindex="-1" aria-labelledby="thankYouModalLabel" aria-hidden="true">
@@ -60,7 +64,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Gracias por ponerte en contacto con nosotros, te llamaremos lo antes posible.
+                    Gracias por ponerte en contacto con nosotros, te responderemos lo antes posible.
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-success" data-bs-dismiss="modal">Aceptar</button>
@@ -69,15 +73,85 @@
         </div>
     </div>
 
-    <div id="newsletter"></div> 
+    <?php include './components/newsletter.php'?> 
     <div id="footer"></div>
     <div id="arrowup"></div>
 
     <!-- Bootstrap JS -->
     <script src="./assets/js/bootstrap.bundle.min.js"></script>
-    <script src="./assets/js/app.js"></script>
+    <script src="../assets/js/app.js"></script>
     
-    
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let contactForm = document.getElementById("contactForm");
+            let thankYouModal = new bootstrap.Modal(document.getElementById("thankYouModal"));
+
+            // Expresiones regulares para validaciones
+            const nameRegex = /^[a-zA-Z\s]+$/;  // Solo letras y espacios
+            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;  // Validación de correo
+            const subjectRegex = /.+/; 
+            const messageRegex = /.+/;
+
+            // Función de validación
+            function validateForm() {
+                let isValid = true;
+
+                // Validación del nombre
+                const name = document.getElementById("name");
+                const nameError = document.getElementById("nameError");
+                if (!name.value.match(nameRegex)) {
+                    nameError.textContent = "El nombre solo puede contener letras y espacios.";
+                    isValid = false;
+                } else {
+                    nameError.textContent = "";
+                }
+
+                // Validación del correo electrónico
+                const email = document.getElementById("email");
+                const emailError = document.getElementById("emailError");
+                if (!email.value.match(emailRegex)) {
+                    emailError.textContent = "Por favor, ingresa un correo electrónico válido.";
+                    isValid = false;
+                } else {
+                    emailError.textContent = "";
+                }
+
+                // Validación del asunto
+                const subject = document.getElementById("subject");
+                const subjectError = document.getElementById("subjectError");
+                if (!subject.value.match(subjectRegex)) {
+                    subjectError.textContent = "El asunto no debe de estar vacío.";
+                    isValid = false;
+                } else {
+                    subjectError.textContent = "";
+                }
+
+                // Validación del mensaje
+                const message = document.getElementById("message");
+                const messageError = document.getElementById("messageError");
+                if (!message.value.match(messageRegex)) {
+                    messageError.textContent = "El mensaje no puede estar vacío.";
+                    isValid = false;
+                } else {
+                    messageError.textContent = "";
+                }
+
+                return isValid;
+            }
+
+            // Acción del formulario
+            contactForm.addEventListener("submit", function (event) {
+                event.preventDefault(); 
+
+                // Validar antes de mostrar el modal
+                if (validateForm()) {
+                    thankYouModal.show(); 
+                    contactForm.reset(); 
+                }
+            });
+        });
+    </script>
+
     <style>
         /* Estilos adicionales */
         .contacto {

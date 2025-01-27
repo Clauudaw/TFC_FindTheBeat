@@ -1,13 +1,8 @@
-
 <?php
 session_start();
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit();
-}
 
 // Conectar a la base de datos
-include 'db.php';
+include './db.php';
 // Obtener el ID del espacio
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 if (!$id) {
