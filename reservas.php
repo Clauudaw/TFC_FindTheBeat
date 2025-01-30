@@ -19,12 +19,12 @@ $space_id = isset($_GET['space_id']) ? (int)$_GET['space_id'] : 0;
 
 // Verificar si se ha enviado el formulario
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nombre = $_POST['nombre'];
-    $apellidos = $_POST['apellidos'];
-    $dni = $_POST['dni'];
-    $correo = $_POST['correo'];
+    $nombre = htmlspecialchars($_POST['nombre']);
+    $apellidos = htmlspecialchars($_POST['apellidos']);
+    $dni = htmlspecialchars($_POST['dni']);
+    $correo = htmlspecialchars($_POST['correo']);
     $fecha_nacimiento = $_POST['fecha_nacimiento'];
-    $telefono = $_POST['telefono'];
+    $telefono = htmlspecialchars($_POST['telefono']);
     $metodo_pago = $_POST['metodo_pago'];
     $fecha_reserva = $_POST['fecha_reserva'];
     $hora_inicio = $_POST['hora_inicio'];
@@ -51,12 +51,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ':hora_fin' => $hora_fin
     ]);
 
-  // Si la inserción es exitosa, guarda el estado en una variable de sesión
-$_SESSION['reservation_success'] = true;
+    // Si la inserción es exitosa, guarda el estado en una variable de sesión
+    $_SESSION['reservation_success'] = true;
 
-// Luego, puedes mostrar el formulario sin redirigir:
-echo "<script>window.location = 'reservas.php';</script>";
-exit();
+    // Redirigir al mismo formulario después de la reserva
+    header("Location: " . $_SERVER['REQUEST_URI']);
+    exit();
 }
 ?>
 
@@ -162,24 +162,25 @@ exit();
         </div>
     </form>
     <br>
+
     <!-- Modal de Confirmación -->
-<div class="modal fade" id="reservaConfirmadaModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="modalLabel">Reserva Confirmada</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-      </div>
-      <div class="modal-body">
-        ✅ ¡Tu reserva ha sido confirmada con éxito!  
-        Puedes verla en tu <a href="user_dashboard.php">panel personal</a>.
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Aceptar</button>
-      </div>
+    <div class="modal fade" id="reservaConfirmadaModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel">Reserva Confirmada</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    ✅ ¡Tu reserva ha sido confirmada con éxito!  
+                    Puedes verla en tu <a href="user_dashboard.php">panel personal</a>.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">Aceptar</button>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 
 </div>
 
@@ -196,8 +197,6 @@ exit();
         <?php unset($_SESSION['reservation_success']); // Eliminar la variable de sesión después de mostrar el modal ?>
     <?php endif; ?>
 });
-
-
 </script>
 
 <script src="assets/js/bootstrap.bundle.min.js"></script>

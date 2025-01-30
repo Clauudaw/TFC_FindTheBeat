@@ -23,11 +23,33 @@ function fetchUser($db, $user_id) {
 
 // Función para obtener las reservas de un usuario
 function fetchUserBookings($db, $user_id) {
-    $stmt = $db->prepare("SELECT * FROM bookings WHERE user_id = :user_id");
+    $stmt = $db->prepare("
+        SELECT 
+            b.id,
+            b.user_id,
+            b.space_id,
+            b.estado,
+            b.created_at,
+            b.nombre,
+            b.apellidos,
+            b.dni,
+            b.correo,
+            b.fecha_nacimiento,
+            b.telefono,
+            b.metodo_pago,
+            b.fecha_reserva,
+            b.hora_inicio,
+            b.hora_fin,
+            s.titulo AS space_title  -- Aquí obtenemos el título del espacio
+        FROM bookings b
+        JOIN spaces s ON b.space_id = s.id  -- Realizamos un JOIN con la tabla 'spaces'
+        WHERE b.user_id = :user_id
+    ");
     $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
 
 // Función para obtener los comentarios de un usuario
 function fetchUserReviews($db, $user_id) {
@@ -62,7 +84,6 @@ $reviews = fetchUserReviews($db, $user_id);
 
 <div class="container mt-5">
     <h2>Bienvenido al Panel de Usuario</h2>
-    <p>Has iniciado sesión correctamente como <?= $_SESSION['role']; ?>.</p>
 
     <div class="row mt-4">
         <div class="col-md-3">
@@ -96,28 +117,47 @@ $reviews = fetchUserReviews($db, $user_id);
                 <div class="tab-pane fade" id="bookings">
                     <h3>Mis Reservas</h3>
                     <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Espacio</th>
-                                <th>Fecha</th>
-                                <th>Estado</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($bookings as $booking): ?>
-                                <tr>
-                                    <td><?= $booking['id']; ?></td>
-                                    <td><?= $booking['space_id']; ?></td>
-                                    <td><?= $booking['reservation_date']; ?></td>
-                                    <td><?= $booking['status']; ?></td>
-                                    <td>
-                                        <a href="cancel_booking.php?id=<?= $booking['id']; ?>" class="btn btn-danger btn-sm">Cancelar Reserva</a>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
+                    <thead>
+    <tr>
+        <th>Espacio</th>
+        <th>Estado</th>
+        <th>Fecha de Reserva</th>
+        <th>Hora de Inicio</th>
+        <th>Hora de Fin</th>
+        <th>Nombre</th>
+        <th>Apellidos</th>
+        <th>DNI</th>
+        <th>Correo</th>
+        <th>Fecha de Nacimiento</th>
+        <th>Teléfono</th>
+        <th>Método de Pago</th>
+        <th>Fecha de Creación</th>
+        <th>Acciones</th>
+    </tr>
+</thead>
+<tbody>
+    <?php foreach ($bookings as $booking): ?>
+        <tr>
+            <td><?= $booking['space_title']; ?></td> <!-- Aquí mostramos el título del espacio -->
+            <td><?= $booking['estado']; ?></td>
+            <td><?= $booking['fecha_reserva']; ?></td>
+            <td><?= $booking['hora_inicio']; ?></td>
+            <td><?= $booking['hora_fin']; ?></td>
+            <td><?= $booking['nombre']; ?></td>
+            <td><?= $booking['apellidos']; ?></td>
+            <td><?= $booking['dni']; ?></td>
+            <td><?= $booking['correo']; ?></td>
+            <td><?= $booking['fecha_nacimiento']; ?></td>
+            <td><?= $booking['telefono']; ?></td>
+            <td><?= $booking['metodo_pago']; ?></td>
+            <td><?= $booking['created_at']; ?></td>
+            <td>
+                <a href="cancel_booking.php?id=<?= $booking['id']; ?>" class="btn btn-danger btn-sm">Cancelar Reserva</a>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+</tbody>
+
                     </table>
                 </div>
 

@@ -135,10 +135,34 @@ for ($i = 1; $i <= 6; $i++) {
                 <p><strong>Descripción:</strong> <?php echo nl2br(htmlspecialchars($space['descripcion'])); ?></p>
 
                 <a href="espacios.php" class="btn btn-primary mt-3">Volver</a>
-                <a href="reservas.php?space_id=<?php echo $space['id']; ?>" class="btn btn-success mt-3 ms-2">Reservar</a>
+                <?php if (isset($_SESSION['user_id'])): ?>
+    <a href="reservas.php?space_id=<?php echo $space['id']; ?>" class="btn btn-success mt-3 ms-2">Reservar</a>
+<?php else: ?>
+    <button class="btn btn-success mt-3 ms-2" data-bs-toggle="modal" data-bs-target="#loginModal">Reservar</button>
+<?php endif; ?>
             </div>
         </div>
     </div>
+
+    <!-- Modal de inicio de sesión requerido -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="loginModalLabel">Iniciar sesión requerido</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        Debes iniciar sesión para poder hacer una reserva.
+      </div>
+      <div class="modal-footer">
+        <a href="login.php" class="btn btn-primary">Iniciar Sesión</a>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
     <?php
 // Obtener comentarios del espacio
