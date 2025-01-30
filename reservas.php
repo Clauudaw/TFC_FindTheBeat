@@ -156,18 +156,18 @@ $space = $stmt->fetch(PDO::FETCH_ASSOC);
             <label class="form-label">Método de Pago</label>
         </div>
         <div class="col-md-6 form-floating">
-            <label class="form-label">Fecha de Reserva</label>
             <input type="date" class="form-control" name="fecha_reserva" required>
+            <label class="form-label">Fecha de Reserva</label>
         </div>
         <div class="col-md-3 form-floating">
-            <label class="form-label">Hora de Inicio</label>
             <input type="time" class="form-control" name="hora_inicio" required>
+            <label class="form-label">Hora de Inicio</label>
         </div>
         <div class="col-md-3 form-floating">
-            <label class="form-label">Hora de Fin</label>
             <input type="time" class="form-control" name="hora_fin" required>
+            <label class="form-label">Hora de Fin</label>
         </div>
-        <div class="col-12 form-floating w-100">
+        <div class="col-12 w-100">
         <button type="submit" class="btn btn-primary">Confirmar Reserva</button>
         </div>
     </form>
