@@ -368,7 +368,7 @@ $bookings = fetchAll($db, 'bookings');
             <select class="form-select" id="metodo_pago" name="metodo_pago" required>
                 <option value="tarjeta">Tarjeta</option>
                 <option value="paypal">PayPal</option>
-                <option value="transferencia">Transferencia</option>
+                <option value="Bizum">Bizum</option>
             </select>
         </div>
         <button type="submit" class="btn btn-primary">Añadir Reserva</button>

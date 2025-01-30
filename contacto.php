@@ -11,6 +11,13 @@
 </head>
 <body>
     <?php include_once './components/header.php'; ?>
+    <br>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/index.php" class="breadcrumb-link">Inicio</a></li>
+    <li class="breadcrumb-item active" aria-current="page"><a href="#" class="breadcrumb-link">Contacto</a></li>
+  </ol>
+</nav>
     <div class="container my-5">
         <div class="row align-items-center">
             <h2 class="mb-3 text-center custom-title">¿Tienes alguna duda? Contáctanos</h2>

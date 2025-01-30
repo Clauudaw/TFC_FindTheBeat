@@ -11,10 +11,18 @@
 </head>
 <body>
 <?php include_once './components/header.php'; ?>
-    
+<br>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/index.php" class="breadcrumb-link">Inicio</a></li>
+    <li class="breadcrumb-item active" aria-current="page"><a href="#" class="breadcrumb-link">Sobre Nosotros</a></li>
+  </ol>
+</nav>
+       
+
     <div class="container mt-5 col-sm-10">
     
-        <h2 class="text-center mb-4">Sobre Nosotros</h2>
+    <h2 class="text-center mb-4">Sobre Nosotros</h2>
         <p class="text-center fs-5 text-muted">En FindTheBeat, conectamos músicos con espacios diseñados para la creatividad y la excelencia.</p>
         
         <div class="row align-items-center mb-5">

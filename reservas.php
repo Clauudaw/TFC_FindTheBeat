@@ -58,6 +58,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     header("Location: " . $_SERVER['REQUEST_URI']);
     exit();
 }
+
+// Obtener el ID del espacio desde la URL
+$space_id = isset($_GET['space_id']) ? (int) $_GET['space_id'] : 0;
+
+// Obtener información del espacio
+$stmt = $db->prepare("SELECT titulo, imagen, precio, direccion, descripcion FROM spaces WHERE id = :space_id");
+$stmt->execute([':space_id' => $space_id]);
+$space = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -70,36 +78,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="assets/css/styles.css">
     <style>
         body {
-            background-color: #f4f4f4;
+            background-color: #f8f9fa;
         }
-        h1 {
-            color: #3D8168;
-            font-size: 2.5rem;
-        }
-        .form-label {
-            font-size: 1.1rem;
-            font-weight: bold;
-            color: #333;
-        }
-        .form-control {
-            border-radius: 5px;
-            border: 2px solid #3D8168;
-        }
-        .form-select {
-            border-radius: 5px;
-            border: 2px solid #3D8168;
+        .card {
+            border-radius: 10px;
         }
         .btn-primary {
             background-color: #3D8168;
-            border: none;
-            border-radius: 5px;
-            font-size: 1.1rem;
+            border-color: #3D8168;
         }
         .btn-primary:hover {
             background-color: #316f53;
         }
-        .btn-primary:focus {
-            box-shadow: 0 0 0 0.25rem rgba(61, 129, 104, 0.5);
+        .form-floating > label {
+            color: #6c757d;
         }
     </style>
 </head>
@@ -107,62 +99,84 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <?php include_once './components/header.php'; ?>
 
-<div class="container">
-    <br><br>
-    <h1 class="mb-4">Reservar Espacio</h1>
+<div class="container py-5">
+<div class="row justify-content-center">
+<div class="col-lg-10">
+<div class="row">
+    <!-- caja de la izquierda-->
+    <div class="col-md-4">
+                    <div class="card shadow">
+                        <img src="<?php echo $space['imagen']; ?>" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo htmlspecialchars($space['titulo']); ?></h5>
+                            <p class="card-text"><?php echo htmlspecialchars($space['direccion']); ?></p>
+                            <p class="card-text"><?php echo substr(htmlspecialchars($space['descripcion']), 0, 100) . '...'; ?></p>
+                            <p class="fw-bold">Precio: <?php echo number_format($space['precio'], 2); ?>€/hora</p>
+                        </div>
+                    </div>
+                </div>
+
+<div class="col-md-8">
+<div class="card shadow p-4">
+    <h1 class="mb-4">Reservar este Espacio</h1>
     <form method="POST" class="row g-3 needs-validation" novalidate>
         <input type="hidden" name="space_id" value="<?php echo $space_id; ?>">
 
-        <div class="col-md-6">
-            <label class="form-label">Nombre</label>
+        <div class="col-md-6 form-floating">
             <input type="text" class="form-control" name="nombre" required>
+            <label class="form-label">Nombre</label>       
         </div>
-        <div class="col-md-6">
-            <label class="form-label">Apellidos</label>
+        <div class="col-md-6 form-floating">
             <input type="text" class="form-control" name="apellidos" required>
+            <label class="form-label">Apellidos</label>        
         </div>
-        <div class="col-md-6">
-            <label class="form-label">DNI</label>
+        <div class="col-md-6 form-floating">
             <input type="text" class="form-control" name="dni" required>
+            <label class="form-label">DNI</label>
         </div>
-        <div class="col-md-6">
-            <label class="form-label">Correo Electrónico</label>
+        <div class="col-md-6 form-floating">
             <input type="email" class="form-control" name="correo" required>
+            <label class="form-label">Correo Electrónico</label>
         </div>
-        <div class="col-md-6">
-            <label class="form-label">Fecha de Nacimiento</label>
+        <div class="col-md-6 form-floating">
             <input type="date" class="form-control" name="fecha_nacimiento" required>
+            <label class="form-label">Fecha de Nacimiento</label>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 form-floating">
+            <input type="tel" class="form-control" name="telefono" required>
             <label class="form-label">Teléfono</label>
-            <input type="text" class="form-control" name="telefono" required>
         </div>
-        <div class="col-md-4">
-            <label class="form-label">Método de Pago</label>
+        <div class="col-md-4 form-floating">
             <select class="form-select" name="metodo_pago" required>
+                <option value="" selected disabled>Seleccione una opcion</option>
                 <option value="tarjeta">Tarjeta de Crédito</option>
                 <option value="paypal">PayPal</option>
-                <option value="transferencia">Transferencia Bancaria</option>
+                <option value="bizum">Transferencia Bancaria</option>
             </select>
+            <label class="form-label">Método de Pago</label>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 form-floating">
             <label class="form-label">Fecha de Reserva</label>
             <input type="date" class="form-control" name="fecha_reserva" required>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3 form-floating">
             <label class="form-label">Hora de Inicio</label>
             <input type="time" class="form-control" name="hora_inicio" required>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3 form-floating">
             <label class="form-label">Hora de Fin</label>
             <input type="time" class="form-control" name="hora_fin" required>
         </div>
-        <div class="col-12">
+        <div class="col-12 form-floating w-100">
         <button type="submit" class="btn btn-primary">Confirmar Reserva</button>
         </div>
     </form>
-    <br>
-
+    </div>
+    </div>
+    </div>
+</div>
+    </div>
+    
     <!-- Modal de Confirmación -->
     <div class="modal fade" id="reservaConfirmadaModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -183,7 +197,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 
 </div>
-
+<div id="footer"></div>
 <script>
     function mostrarModalReserva() {
         var modal = new bootstrap.Modal(document.getElementById('reservaConfirmadaModal'));
