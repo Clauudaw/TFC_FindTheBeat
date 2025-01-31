@@ -1,0 +1,33 @@
+<?php
+session_start();
+require_once './db.php';
+
+// Verifica que el usuario sea un administrador
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+    header('Location: login.php');
+    exit();
+}
+
+// Verifica si el formulario ha sido enviado
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Obtener los datos del formulario
+    $titulo = $_POST['titulo'];
+    $descripcion = $_POST['descripcion'] ?? null;
+    $precio = $_POST['precio'];
+    $direccion = $_POST['direccion'] ?? null;
+    $provincia = $_POST['provincia'] ?? null;
+    $comunidad_autonoma = $_POST['comunidad_autonoma'];
+    $capacidad = $_POST['capacidad'] ?? null;
+    $tipo = $_POST['tipo'];
+
+    // Preparar y ejecutar la consulta SQL para insertar los datos
+    $stmt = $db->prepare("INSERT INTO spaces (titulo, descripcion, precio, direccion, provincia, comunidad_autonoma, capacidad, tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->execute([$titulo, $descripcion, $precio, $direccion, $provincia, $comunidad_autonoma, $capacidad, $tipo]);
+
+    // Guardar mensaje en sesión y redirigir
+    $_SESSION['success'] = "✅ El nuevo espacio ha sido creado correctamente.";
+    header('Location: admin_dashboard.php');
+    exit();
+}
+?>
+

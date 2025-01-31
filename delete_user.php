@@ -16,14 +16,15 @@ if (isset($_GET['id'])) {
     $count = $stmt->fetchColumn();
 
     if ($count > 0) {
-        echo "El usuario tiene reservas asociadas y no puede ser eliminado.";
+        $_SESSION['error'] = "❌ El usuario tiene reservas asociadas y no puede ser eliminado.";
     } else {
         // Eliminar usuario
         $stmt = $db->prepare("DELETE FROM users WHERE id = ?");
         $stmt->execute([$id]);
-        header('Location: admin_dashboard.php');
-        exit();
+        $_SESSION['success'] = "✅ Usuario eliminado correctamente.";
     }
+
+    header('Location: admin_dashboard.php'); // Redirigir con mensaje
+    exit();
 }
 ?>
-

@@ -35,6 +35,22 @@ $bookings = fetchAll($db, 'bookings');
 
 <?php include 'components/header.php'; ?> 
 
+<?php if (isset($_SESSION['error'])): ?>
+    <div class="alert alert-warning alert-dismissible fade show mt-3" role="alert">
+        <?= $_SESSION['error']; ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <?php unset($_SESSION['error']); ?> <!-- Elimina el mensaje después de mostrarlo -->
+<?php endif; ?>
+
+<?php if (isset($_SESSION['success'])): ?>
+    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+        <?= $_SESSION['success']; ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <?php unset($_SESSION['success']); ?> <!-- Elimina el mensaje después de mostrarlo -->
+<?php endif; ?>
+
 <div class="container mt-5">
     <h2>Bienvenido al Panel de Administración</h2>
 
@@ -95,6 +111,10 @@ $bookings = fetchAll($db, 'bookings');
                             <input type="email" class="form-control" id="email" name="email" required>
                         </div>
                         <div class="mb-3">
+                            <label for="password" class="form-label">Contraseña</label>
+                            <input type="text" class="form-control" id="password" name="password" required>
+                        </div>
+                        <div class="mb-3">
                             <label for="role" class="form-label">Rol</label>
                             <select class="form-select" id="role" name="role" required>
                                 <option value="admin">Admin</option>
@@ -102,7 +122,8 @@ $bookings = fetchAll($db, 'bookings');
                             </select>
                         </div>
                         <button type="submit" class="btn btn-primary">Crear Usuario</button>
-                    </form>
+                    </form><br>
+
                 </div>
                 
                 <!-- Tabla de Espacios -->
@@ -174,7 +195,11 @@ $bookings = fetchAll($db, 'bookings');
                         </div>
                         <div class="mb-3">
                             <label for="comunidad_autonoma" class="form-label">Comunidad Autónoma</label>
-                            <input type="text" class="form-control" id="comunidad_autonoma" name="comunidad_autonoma" required>
+                            <select class="form-select" id="comunidad_autonoma" name="comunidad_autonoma" required>
+                            <option value="Andalucía">Andalucía</option>
+                                <option value="Madrid">Madrid</option>
+                                <option value="Cataluña">Cataluña</option>
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label for="capacidad" class="form-label">Capacidad</label>
@@ -183,13 +208,13 @@ $bookings = fetchAll($db, 'bookings');
                         <div class="mb-3">
                             <label for="tipo" class="form-label">Tipo</label>
                             <select class="form-select" id="tipo" name="tipo" required>
-                                <option value="salon">Salón</option>
-                                <option value="auditorio">Auditorio</option>
-                                <option value="estudio">Estudio</option>
+                                <option value="grabación">grabación</option>
+                                <option value="ensayo">ensayo</option>
+                                <option value="eventos">eventos</option>
                             </select>
                         </div>
                         <button type="submit" class="btn btn-primary">Crear Espacio</button>
-                    </form>
+                    </form><br>
                 </div>
 
                 <!-- Tabla de Reseñas -->
@@ -248,7 +273,7 @@ $bookings = fetchAll($db, 'bookings');
             <textarea class="form-control" id="comment" name="comment" rows="4" required></textarea>
         </div>
         <button type="submit" class="btn btn-primary">Añadir Reseña</button>
-    </form>
+    </form><br>
 </div>
 </div>
 
@@ -372,14 +397,16 @@ $bookings = fetchAll($db, 'bookings');
             </select>
         </div>
         <button type="submit" class="btn btn-primary">Añadir Reserva</button>
-    </form>
+    </form><br>
 </div>
-</div>
-
+</div></div></div></div>
+</div></div>
+<div id="footer"></div>
 
 
 <!-- Bootstrap JS -->
 <script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="./assets/js/app.js"></script>
 
 <script>
     // Función para confirmar la eliminación
