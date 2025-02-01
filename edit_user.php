@@ -11,6 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
     $id = $_POST['id'];
     $username = $_POST['username'];
     $email = $_POST['email'];
+    $email = $_POST['email'];
     $role = $_POST['role'];
 
     $stmt = $db->prepare("UPDATE users SET username = ?, email = ?, role = ? WHERE id = ?");

@@ -252,29 +252,7 @@ $bookings = fetchAll($db, 'bookings');
                     </table>
                 
 
-                <!-- Formulario para añadir una nueva reseña -->
-<div class="mt-4">
-    <h4>Añadir Nueva Reseña</h4>
-    <form action="add_review.php" method="POST">
-        <div class="mb-3">
-            <label for="user_id" class="form-label">ID de Usuario</label>
-            <input type="number" class="form-control" id="user_id" name="user_id" required>
-        </div>
-        <div class="mb-3">
-            <label for="space_id" class="form-label">ID de Espacio</label>
-            <input type="number" class="form-control" id="space_id" name="space_id" required>
-        </div>
-        <div class="mb-3">
-            <label for="rating" class="form-label">Calificación</label>
-            <input type="number" class="form-control" id="rating" name="rating" min="1" max="5" required>
-        </div>
-        <div class="mb-3">
-            <label for="comment" class="form-label">Comentario</label>
-            <textarea class="form-control" id="comment" name="comment" rows="4" required></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Añadir Reseña</button>
-    </form><br>
-</div>
+     
 </div>
 
                 
@@ -335,7 +313,7 @@ $bookings = fetchAll($db, 'bookings');
                 <!-- Formulario para añadir una nueva reserva -->
 <div class="mt-4">
     <h4>Añadir Nueva Reserva</h4>
-    <form action="add_booking.php" method="POST">
+    <form action="create_booking.php" method="POST">
         <div class="mb-3">
             <label for="user_id" class="form-label">ID de Usuario</label>
             <input type="number" class="form-control" id="user_id" name="user_id" required>
