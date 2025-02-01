@@ -7,15 +7,10 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     exit();
 }
 
-
-// Verifica si se ha pasado el ID de la reserva
-if (!isset($_GET['booking_id'])) {
-    header('Location: admin_dashboard.php');
-    exit();
-}
-
 // Verifica si el formulario ha sido enviado
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
+    $booking_id = $_POST['id']; // Asegurar que obtenemos el ID de la reserva correctamente
+
     // Obtener los datos del formulario
     $user_id = $_POST['user_id'];
     $space_id = $_POST['space_id'];
@@ -33,14 +28,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Preparar y ejecutar la consulta SQL para actualizar la reserva
     $stmt = $db->prepare("UPDATE bookings SET user_id = ?, space_id = ?, estado = ?, nombre = ?, apellidos = ?, dni = ?, correo = ?, fecha_nacimiento = ?, telefono = ?, metodo_pago = ?, fecha_reserva = ?, hora_inicio = ?, hora_fin = ? WHERE id = ?");
-    $stmt->execute([$user_id ,$space_id, $estado, $nombre, $apellidos, $dni, $correo, $fecha_nacimiento, $telefono, $metodo_pago, $fecha_reserva, $hora_inicio, $hora_fin, $booking_id]);
+    $stmt->execute([$user_id, $space_id, $estado, $nombre, $apellidos, $dni, $correo, $fecha_nacimiento, $telefono, $metodo_pago, $fecha_reserva, $hora_inicio, $hora_fin, $booking_id]);
 
     // Guardar mensaje en sesión y redirigir
     $_SESSION['success'] = "✅ La reserva ha sido actualizada correctamente.";
     header('Location: admin_dashboard.php');
     exit();
 }
+
+// Verifica si se ha pasado un ID de reserva en la URL
+if (!isset($_GET['id'])) {
+    $_SESSION['error'] = "⚠️ No se encontró la reserva.";
+    header('Location: admin_dashboard.php');
+    exit();
+}
+
+$booking_id = $_GET['id'];
+
+// Obtener los datos de la reserva desde la base de datos
+$stmt = $db->prepare("SELECT * FROM bookings WHERE id = ?");
+$stmt->execute([$booking_id]);
+$booking = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// Si no se encuentra la reserva, redirigir con error
+if (!$booking) {
+    $_SESSION['error'] = "❌ La reserva no existe.";
+    header('Location: admin_dashboard.php');
+    exit();
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -58,7 +75,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="/admin_dashboard.php" class="breadcrumb-link">Panel de Administración</a></li>
-    <li class="breadcrumb-item"><a href="bookings_list.php" class="breadcrumb-link">Lista de Reservas</a></li>
     <li class="breadcrumb-item active" aria-current="page"><a href="#" class="breadcrumb-link">Editar Reserva</a></li>
   </ol>
 </nav>
