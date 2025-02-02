@@ -139,3 +139,18 @@ function alertaSesion() {
         modal.show();
     }
 }
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const togglePassword = document.getElementById("togglePassword");
+    const passwordField = document.getElementById("password");
+
+    togglePassword.addEventListener("click", function () {
+        // Alternar el tipo de input entre 'password' y 'text'
+        const type = passwordField.type === "password" ? "text" : "password";
+        passwordField.type = type;
+
+        // Cambiar el icono
+        this.innerHTML = type === "password" ? '<i class="bi bi-eye"></i>' : '<i class="bi bi-eye-slash"></i>';
+    });
+});

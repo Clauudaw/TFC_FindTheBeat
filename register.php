@@ -52,6 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <title>Registro - FindTheBeat</title>
   <link rel="stylesheet" href="assets/css/bootstrap.min.css">
   <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
   <style>
     body {
       background-color: #f4f4f4;
@@ -109,9 +110,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="email" class="form-control" id="email" name="email" required>
       </div>
       <div class="mb-3">
-        <label for="password" class="form-label">Contraseña</label>
-        <input type="password" class="form-control" id="password" name="password" required>
-      </div>
+            <label for="password" class="form-label">Contraseña</label>
+            <div class="input-group">
+              <input type="password" class="form-control" id="password" name="password" required>
+              <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                <i class="bi bi-eye"></i>
+              </button>
+            </div>
+          </div>
       <button type="submit" class="btn btn-register w-100">Registrarse</button>
     </form>
     <div class="text-center mt-3">

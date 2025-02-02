@@ -9,7 +9,6 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'normal') {
     exit();
 }
 
-// Verifica si el usuario es admin o normal
 $is_normal = $_SESSION['role'] === 'normal';
 $user_id = $_SESSION['user_id'];
 
@@ -21,7 +20,7 @@ function fetchUser($db, $user_id) {
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-// Función para obtener las reservas de un usuario
+// Función para obtener las reservas del usuario
 function fetchUserBookings($db, $user_id) {
     $stmt = $db->prepare("
         SELECT 
@@ -51,7 +50,7 @@ function fetchUserBookings($db, $user_id) {
 }
 
 
-// Función para obtener los comentarios de un usuario
+// Función para obtener los comentarios del usuario
 function fetchUserReviews($db, $user_id) {
     $stmt = $db->prepare("SELECT * FROM reviews WHERE user_id = :user_id");
     $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
@@ -59,7 +58,6 @@ function fetchUserReviews($db, $user_id) {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-// Si el usuario es normal, puede ver solo su información
 if ($is_normal) {
     $user = fetchUser($db, $user_id);
 }
@@ -77,10 +75,28 @@ $reviews = fetchUserReviews($db, $user_id);
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="assets/css/bootstrap.min.css">
   <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 </head>
 <body>
 
 <?php include 'components/header.php'; ?>
+<br>
+
+<?php if (isset($_SESSION['error'])): ?>
+    <div class="alert alert-warning alert-dismissible fade show mt-3" role="alert">
+        <?= $_SESSION['error']; ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <?php unset($_SESSION['error']); ?> <!-- Elimina el mensaje después de mostrarlo -->
+<?php endif; ?>
+
+<?php if (isset($_SESSION['success'])): ?>
+    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+        <?= $_SESSION['success']; ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <?php unset($_SESSION['success']); ?> <!-- Elimina el mensaje después de mostrarlo -->
+<?php endif; ?>
 
 <div class="container mt-5">
     <h2>Bienvenido al Panel de Usuario</h2>
@@ -95,23 +111,38 @@ $reviews = fetchUserReviews($db, $user_id);
         </div>
 
         <div class="col-md-9">
-            <div class="tab-content">
-                <!-- Mi Perfil -->
-                <div class="tab-pane fade show active" id="profile">
-                    <h3>Mi Perfil</h3>
-                    <!-- Solo el usuario puede editar su propio perfil -->
-                    <form action="update_user.php" method="POST">
-                        <div class="mb-3">
-                            <label for="username" class="form-label">Nombre de usuario</label>
-                            <input type="text" class="form-control" id="username" name="username" value="<?= $user['username']; ?>" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Correo electrónico</label>
-                            <input type="email" class="form-control" id="email" name="email" value="<?= $user['email']; ?>" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Actualizar Información</button>
-                    </form>
+    <div class="tab-content">
+        <!-- Mi Perfil -->
+        <div class="tab-pane fade show active" id="profile">
+            <h3>Mi Perfil</h3>
+            <!-- Solo el usuario puede editar su propio perfil -->
+            <form action="update_user.php" method="POST">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Nombre de usuario</label>
+                    <input type="text" class="form-control" id="username" name="username" value="<?= $user['username']; ?>" required>
                 </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Correo electrónico</label>
+                    <input type="email" class="form-control" id="email" name="email" value="<?= $user['email']; ?>" required>
+                </div>
+
+                <div class="mb-3">
+    <label for="password" class="form-label">Contraseña</label>
+    <div class="input-group">
+        <input type="password" class="form-control" id="password" name="password" value="<?= $user['password']; ?>" required>
+        <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+            <i class="bi bi-eye"></i>
+        </button>
+    </div>
+</div>
+
+                
+                <button type="submit" class="btn btn-primary">Actualizar Información</button>
+            </form>
+        </div>
+    </div>
+</div>
+
 
                 <!-- Mis Reservas -->
                 <div class="tab-pane fade" id="bookings">
@@ -152,7 +183,7 @@ $reviews = fetchUserReviews($db, $user_id);
             <td><?= $booking['metodo_pago']; ?></td>
             <td><?= $booking['created_at']; ?></td>
             <td>
-                <a href="cancel_booking.php?id=<?= $booking['id']; ?>" class="btn btn-danger btn-sm">Cancelar Reserva</a>
+                <a href="delete_booking.php?id=<?= $booking['id']; ?>" class="btn btn-danger btn-sm">Cancelar Reserva</a>
             </td>
         </tr>
     <?php endforeach; ?>

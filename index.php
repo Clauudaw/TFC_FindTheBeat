@@ -18,7 +18,7 @@ include './components/header.php';
     <?php include './components/destacados.php'; ?>
     <?php include './components/newsletter.php'; ?>
 
-    <div id="footer"></div> <!-- Aquí se cargará el Footer -->
+    <div id="footer"></div> 
     <div id="arrowup"></div>
     
     <!-- Bootstrap JS -->

@@ -41,13 +41,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <title>Login - FindTheBeat</title>
   <link rel="stylesheet" href="assets/css/bootstrap.min.css">
   <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"> <!-- Bootstrap Icons -->
   <style>
     body {
       background-color: #f4f4f4;
     }
     .login-container {
       max-width: 600px;
-      margin:  3.5em auto;
+      margin: 3.5em auto;
       padding: 2rem;
       background: white;
       border-radius: 10px;
@@ -95,23 +96,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           </div>
           <div class="mb-3">
             <label for="password" class="form-label">Contraseña</label>
-            <input type="password" class="form-control" id="password" name="password" required>
+            <div class="input-group">
+              <input type="password" class="form-control" id="password" name="password" required>
+              <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                <i class="bi bi-eye"></i>
+              </button>
+            </div>
           </div>
           <button type="submit" class="btn btn-custom w-100">Iniciar Sesión</button>
         </form>
       </div>
       <div class="text-center mt-3">
-      <a href="register.php">¿No tienes cuenta? Regístrate</a>
-    </div>
-    <div class="text-center mt-2">
-      <a href="/index.php" class="btn btn-secondary w-50">Volver</a> 
-    </div>
-    <br>
+        <a href="register.php">¿No tienes cuenta? Regístrate</a>
+      </div>
+      <div class="text-center mt-2">
+        <a href="/index.php" class="btn btn-secondary w-50">Volver</a> 
+      </div>
+      <br>
     </div>
   </div>
 </div>
 <div id="footer"></div>
 <script src="assets/js/bootstrap.bundle.min.js"></script>
 <script src="assets/js/app.js"></script>
+
 </body>
 </html>
