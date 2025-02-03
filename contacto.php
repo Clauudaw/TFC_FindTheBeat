@@ -18,6 +18,13 @@
     <li class="breadcrumb-item active" aria-current="page"><a href="#" class="breadcrumb-link">Contacto</a></li>
   </ol>
 </nav>
+<?php if (isset($_SESSION['success'])): ?>
+    <div class="alert alert-success"><?= $_SESSION['success']; unset($_SESSION['success']); ?></div>
+<?php endif; ?>
+<?php if (isset($_SESSION['error'])): ?>
+    <div class="alert alert-danger"><?= $_SESSION['error']; unset($_SESSION['error']); ?></div>
+<?php endif; ?>
+
     <div class="container my-5">
         <div class="row align-items-center">
             <h2 class="mb-3 text-center custom-title">¿Tienes alguna duda? Contáctanos</h2>
@@ -34,7 +41,7 @@
             
             <!-- Formulario a la derecha -->
             <div class="col-md-8">
-                <form id="contactForm" class="contacto">
+                <form id="contactForm" class="contacto" action="process_contact.php" method="POST">
                     <div class="mb-3">
                         <label for="name" class="form-label">Nombre</label>
                         <input type="text" class="form-control" id="name" name="name" placeholder="Ingresa tu nombre">
@@ -67,11 +74,11 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="thankYouModalLabel">¡Mensaje Recibido!</h5>
+                    <h5 class="modal-title" id="thankYouModalLabel"> ✅ ¡Mensaje Recibido!</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Gracias por ponerte en contacto con nosotros, te responderemos lo antes posible.
+                    Gracias por ponerte en contacto con nosotros, te llamaremos lo antes posible
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-success" data-bs-dismiss="modal">Aceptar</button>
@@ -152,8 +159,13 @@
 
                 // Validar antes de mostrar el modal
                 if (validateForm()) {
-                    thankYouModal.show(); 
-                    contactForm.reset(); 
+                thankYouModal.show(); 
+
+                // Agregar el evento de clic en el botón "Aceptar"
+                document.querySelector(".btn-success[data-bs-dismiss='modal']").addEventListener("click", function() {
+                    contactForm.submit();  // Enviar el formulario cuando el usuario haga clic en "Aceptar"
+                });
+                
                 }
             });
         });

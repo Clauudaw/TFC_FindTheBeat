@@ -1,78 +1,26 @@
 <?php
+// Iniciar sesión para obtener el user_id del usuario logueado
 session_start();
 
 // Verificar si el usuario está logueado
 if (!isset($_SESSION['user_id'])) {
+    // Si no está logueado, redirigir al login o mostrar un mensaje de error
     die("Debes iniciar sesión para hacer una reserva.");
 }
 
+// Obtener el ID del usuario desde la sesión
 $user_id = $_SESSION['user_id'];
 
 // Conectar a la base de datos
 include 'db.php';
 
-// Verificar conexión
-if (!$db) {
-    die("Error de conexión a la base de datos.");
-}
-
 // Obtener el ID del espacio desde la URL
-$space_id = isset($_GET['space_id']) ? (int) $_GET['space_id'] : 0;
-
-// Verificar si se ha enviado el formulario
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nombre = $_POST['nombre'];
-    $apellidos = $_POST['apellidos'];
-    $dni = $_POST['dni'];
-    $correo = $_POST['correo'];
-    $fecha_nacimiento = $_POST['fecha_nacimiento'];
-    $telefono = $_POST['telefono'];
-    $metodo_pago = $_POST['metodo_pago'];
-    $fecha_reserva = $_POST['fecha_reserva'];
-    $hora_inicio = $_POST['hora_inicio'];
-    $hora_fin = $_POST['hora_fin'];
-
-    try {
-        // Insertar la reserva en la base de datos
-        $stmt = $db->prepare("INSERT INTO bookings 
-            (space_id, user_id, nombre, apellidos, dni, correo, fecha_nacimiento, telefono, metodo_pago, fecha_reserva, hora_inicio, hora_fin, estado, created_at, updated_at) 
-            VALUES 
-            (:space_id, :user_id, :nombre, :apellidos, :dni, :correo, :fecha_nacimiento, :telefono, :metodo_pago, :fecha_reserva, :hora_inicio, :hora_fin, 'pendiente', NOW(), NOW())");
-
-        $stmt->execute([
-            ':space_id' => $space_id,
-            ':user_id' => $user_id,
-            ':nombre' => $nombre,
-            ':apellidos' => $apellidos,
-            ':dni' => $dni,
-            ':correo' => $correo,
-            ':fecha_nacimiento' => $fecha_nacimiento,
-            ':telefono' => $telefono,
-            ':metodo_pago' => $metodo_pago,
-            ':fecha_reserva' => $fecha_reserva,
-            ':hora_inicio' => $hora_inicio,
-            ':hora_fin' => $hora_fin
-        ]);
-
-        // Confirmación de reserva
-        $_SESSION['reservation_success'] = true;
-        header('Location: espacios.php');
-        exit();
-    } catch (PDOException $e) {
-        $_SESSION['reservation_error'] = "Error al reservar: " . $e->getMessage();
-        header('Location: espacios.php');
-        exit();
-    }
-}
-
-// Obtener el ID del espacio desde la URL
-$space_id = isset($_GET['space_id']) ? (int) $_GET['space_id'] : 0;
+$space_id = isset($_GET['space_id']) ? (int)$_GET['space_id'] : 0;
 
 // Obtener información del espacio
 $stmt = $db->prepare("SELECT titulo, imagen, precio, direccion, descripcion FROM spaces WHERE id = :space_id");
 $stmt->execute([':space_id' => $space_id]);
 $space = $stmt->fetch(PDO::FETCH_ASSOC);
-
 ?>
 
 <!DOCTYPE html>
@@ -104,169 +52,216 @@ $space = $stmt->fetch(PDO::FETCH_ASSOC);
 </head>
 <body>
 
-<?php include './components/header.php'; ?>
+<?php include_once './components/header.php'; ?>
 
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-lg-10">
             <div class="row">
-                <!-- Columna Izquierda: Card del Espacio -->
+                <!-- Caja de la izquierda -->
                 <div class="col-md-4">
                     <div class="card shadow">
                         <img src="<?php echo $space['imagen']; ?>" class="card-img-top">
                         <div class="card-body">
-                            <h5 class="card-title"><?php echo htmlspecialchars($space['titulo']); ?></h5>
-                            <p class="card-text"><?php echo htmlspecialchars($space['direccion']); ?></p>
-                            <p class="card-text"><?php echo substr(htmlspecialchars($space['descripcion']), 0, 100) . '...'; ?></p>
-                            <p class="fw-bold">Precio: €<?php echo number_format($space['precio'], 2); ?></p>
+                            <h5 class="card-title"><?php echo $space['titulo']; ?></h5>
+                            <p class="card-text"><?php echo $space['descripcion']; ?></p>
+                            <p class="card-text"><strong>Precio:</strong> €<?php echo $space['precio']; ?></p>
                         </div>
                     </div>
                 </div>
-
-                <!-- Columna Derecha: Formulario de Reserva -->
+                <!-- Formulario de reserva -->
                 <div class="col-md-8">
-                    <div class="card shadow p-4">
-                        <h1 class="text-center mb-4">Reservar este Espacio</h1>
-
-                        <form id="reservaForm" class="row g-3">
-                            <div class="col-md-6 form-floating">
-                                <input type="text" class="form-control" id="nombre" placeholder="Nombre" required>
-                                <label for="nombre">Nombre</label>
-                                <div class="invalid-feedback">Nombre inválido.</div>
-                            </div>
-
-                            <div class="col-md-6 form-floating">
-                                <input type="text" class="form-control" id="apellidos" placeholder="Apellidos" required>
-                                <label for="apellidos">Apellidos</label>
-                                <div class="invalid-feedback">Apellidos inválidos.</div>
-                            </div>
-
-                            <div class="col-md-6 form-floating">
-                                <input type="text" class="form-control" id="dni" placeholder="DNI" required>
-                                <label for="dni">DNI</label>
-                                <div class="invalid-feedback">DNI inválido (Ejemplo: 12345678A).</div>
-                            </div>
-
-                            <div class="col-md-6 form-floating">
-                                <input type="text" class="form-control" id="correo" placeholder="Correo Electrónico" required>
-                                <label for="correo">Correo Electrónico</label>
-                                <div class="invalid-feedback">Correo inválido.</div>
-                            </div>
-
-                            <div class="col-md-6 form-floating">
-                                <input type="date" class="form-control" id="fecha_nacimiento" required>
-                                <label for="fecha_nacimiento">Fecha de Nacimiento</label>
-                                <div class="invalid-feedback">Debes ser mayor de 18 años.</div>
-                            </div>
-
-                            <div class="col-md-6 form-floating">
-                                <input type="tel" class="form-control" id="telefono" placeholder="Teléfono" required>
-                                <label for="telefono">Teléfono</label>
-                                <div class="invalid-feedback">Teléfono inválido.</div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <label for="metodo_pago" class="form-label">Método de Pago</label>
-                                <select class="form-select" id="metodo_pago" required>
-                                    <option value="tarjeta">Tarjeta de Crédito</option>
-                                    <option value="paypal">PayPal</option>
-                                    <option value="transferencia">Transferencia Bancaria</option>
-                                </select>
-                            </div>
-
-                            <div class="col-md-4 form-floating">
-                                <input type="date" class="form-control" id="fecha_reserva" required>
-                                <label for="fecha_reserva">Fecha de Reserva</label>
-                            </div>
-
-                            <div class="col-md-2 form-floating">
-                                <input type="time" class="form-control" id="hora_inicio" required>
-                                <label for="hora_inicio">Hora Inicio</label>
-                            </div>
-
-                            <div class="col-md-2 form-floating">
-                                <input type="time" class="form-control" id="hora_fin" required>
-                                <label for="hora_fin">Hora Fin</label>
-                            </div>
-
-                            <div class="col-12">
-                                <button type="submit" class="btn btn-primary btn-lg w-100">Confirmar Reserva</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div> <!-- Fin Row -->
-        </div>
+                <div class="card shadow p-4">
+                <h1 class="text-center mb-4">Reservar este Espacio</h1>
+                
+                <form id="reservationForm" method="POST">
+                <div class="row">
+    <div class="col-md-6 mb-3 form-floating">
+        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingresa tu nombre">
+        <label for="nombre">Nombre</label>
+        <span id="nombreError" class="text-danger"></span>
+    </div>
+    <div class="col-md-6 mb-3 form-floating">
+        <input type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Ingresa tus apellidos">
+        <label for="apellidos">Apellidos</label>
+        <span id="apellidosError" class="text-danger"></span>
+    </div>
+    <div class="col-md-6 mb-3 form-floating">
+        <input type="text" class="form-control" id="dni" name="dni" placeholder="Ingresa tu DNI">
+        <label for="dni">DNI</label>
+        <span id="dniError" class="text-danger"></span>
+    </div>
+    <div class="col-md-6 mb-3 form-floating">
+        <input type="text" class="form-control" id="correo" name="correo" placeholder="Ingresa tu correo electrónico">
+        <label for="correo">Correo Electrónico</label>
+        <span id="correoError" class="text-danger"></span>
+    </div>
+    <div class="col-md-6 mb-3 form-floating">
+        <input type="date" class="form-control" id="fecha_nacimiento" required>
+        <label for="fecha_nacimiento">Fecha de Nacimiento</label>
+        <span id="edadError" class="text-danger"></span>
+    </div>
+    <div class="col-md-6 mb-3 form-floating">
+        <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Ingresa tu número de teléfono">
+        <label for="telefono">Teléfono</label>
+        <span id="telefonoError" class="text-danger"></span>
     </div>
 </div>
 
-<!-- Modal de Confirmación -->
-<div class="modal fade" id="reservaConfirmadaModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="mb-3 form-floating">
+        <input type="date" class="form-control" id="fecha_reserva" name="fecha_reserva">
+        <label for="fecha_reserva">Fecha de Reserva</label>
+    </div>
+    <div class="row"> 
+    1<div class="col-md-6 mb-3 form-floating">
+        <input type="time" class="form-control" id="hora_inicio" name="hora_inicio">
+        <label for="hora_inicio">Hora de Inicio</label>
+    </div>
+    <div class="col-md-6 mb-3 form-floating">
+        <input type="time" class="form-control" id="hora_fin" name="hora_fin">
+        <label for="hora_fin">Hora de Fin</label>
+    </div>
+</div>
+   
+    <div class="mb-3 form-floating">
+        <select class="form-control" id="metodo_pago" name="metodo_pago">
+        <option value="" selected disabled>Selecciona una opción</option>
+            <option value="tarjeta">Tarjeta</option>
+            <option value="paypal">PayPal</option>
+            <option value="Bizum">Bizum</option>
+        </select>
+        <label for="metodo_pago">Método de Pago</label>
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Confirmar Reserva</button>
+</form>
+
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="footer"></div>
+
+<!-- Modal de confirmación -->
+<div class="modal fade" id="thankYouModal" tabindex="-1" aria-labelledby="thankYouModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header bg-success text-white">
-                <h5 class="modal-title">¡Reserva Confirmada!</h5>
+            <div class="modal-header">
+                <h5 class="modal-title" id="thankYouModalLabel">¡Reserva Confirmada!</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Tu reserva se ha realizado con éxito.
+                Tu reserva ha sido realizada exitosamente. Puedes verla en tu <a href="./user_dashboard.php">panel personal</a>.
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Aceptar</button>
             </div>
         </div>
     </div>
 </div>
 
-
-<div id="footer"></div>
-
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/app.js"></script>
 <script>
-document.getElementById("reservaForm").addEventListener("submit", function(event) {
-    event.preventDefault();
-    let valid = true;
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById('reservationForm');
+    const thankYouModal = new bootstrap.Modal(document.getElementById('thankYouModal'));
 
-    const regexNombre = /^[a-zA-ZÁÉÍÓÚáéíóúñÑ\s]{2,}$/;
-    const regexDNI = /^[0-9]{8}[A-Za-z]$/;
-    const regexCorreo = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    const regexTelefono = /^(?:\+34)?[6-9][0-9]{8}$/;
+    const nameRegex = /^[a-zA-Z\s]+$/;
+    const dniRegex = /^[0-9]{8}[A-Za-z]$/;
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    const phoneRegex = /^[0-9]{9}$/;
 
-    function validarCampo(id, regex, mensaje) {
-        let input = document.getElementById(id);
-        if (!regex.test(input.value)) {
-            valid = false;
-            input.classList.add("is-invalid");
+    function validateForm() {
+        let isValid = true;
+
+        const nombre = document.getElementById('nombre');
+        const nombreError = document.getElementById('nombreError');
+        if (!nombre.value.match(nameRegex)) {
+            nombreError.textContent = "El nombre solo puede contener letras y espacios.";
+            isValid = false;
         } else {
-            input.classList.remove("is-invalid");
+            nombreError.textContent = "";
         }
+
+        const apellidos = document.getElementById('apellidos');
+        const apellidosError = document.getElementById('apellidosError');
+        if (!apellidos.value.match(nameRegex)) {
+            apellidosError.textContent = "Los apellidos solo pueden contener letras y espacios.";
+            isValid = false;
+        } else {
+            apellidosError.textContent = "";
+        }
+
+        const dni = document.getElementById('dni');
+        const dniError = document.getElementById('dniError');
+        if (!dni.value.match(dniRegex)) {
+            dniError.textContent = "Introduce un DNI válido.";
+            isValid = false;
+        } else {
+            dniError.textContent = "";
+        }
+
+        const correo = document.getElementById('correo');
+        const correoError = document.getElementById('correoError');
+        if (!correo.value.match(emailRegex)) {
+            correoError.textContent = "Introduce un correo electrónico válido.";
+            isValid = false;
+        } else {
+            correoError.textContent = "";
+        }
+
+        const telefono = document.getElementById('telefono');
+        const telefonoError = document.getElementById('telefonoError');
+        if (!telefono.value.match(phoneRegex)) {
+            telefonoError.textContent = "Introduce un número de teléfono válido.";
+            isValid = false;
+        } else {
+            telefonoError.textContent = "";
+        }
+
+        const fechaNacimiento = document.getElementById('fecha_nacimiento');
+        const edadError = document.getElementById('edadError');
+
+        const birthDate = new Date(fechaNacimiento.value);
+        const currentDate = new Date();
+        const age = currentDate.getFullYear() - birthDate.getFullYear();
+        const month = currentDate.getMonth() - birthDate.getMonth();
+        const day = currentDate.getDate() - birthDate.getDate();
+
+        // Ajustar la edad si aún no ha cumplido años este año
+        if (month < 0 || (month === 0 && day < 0)) {
+            age--;
+        }
+
+        if (age < 18) {
+            edadError.textContent = "Debes ser mayor de 18 años.";
+            isValid = false; // Marcar como inválido si no es mayor de 18 años
+        } else {
+            edadError.textContent = "";
+        }
+
+        return isValid;
     }
 
-    validarCampo("nombre", regexNombre, "Nombre inválido.");
-    validarCampo("apellidos", regexNombre, "Apellidos inválidos.");
-    validarCampo("dni", regexDNI, "DNI inválido.");
-    validarCampo("correo", regexCorreo, "Correo inválido.");
-    validarCampo("telefono", regexTelefono, "Teléfono inválido.");
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
 
-    let fechaNacimiento = new Date(document.getElementById("fecha_nacimiento").value);
-    let edad = new Date().getFullYear() - fechaNacimiento.getFullYear();
-    if (edad < 18) {
-        valid = false;
-        document.getElementById("fecha_nacimiento").classList.add("is-invalid");
-    } else {
-        document.getElementById("fecha_nacimiento").classList.remove("is-invalid");
-    }
+        if (validateForm()) {
+            // Aquí puedes enviar los datos al servidor si es necesario
+            thankYouModal.show();
 
-    if (valid) {
-        var modal = new bootstrap.Modal(document.getElementById('reservaConfirmadaModal'));
-        modal.show();
-
-        document.getElementById("reservaForm").submit();
-    }
+            // Agregar el evento de clic en el botón "Aceptar"
+            document.querySelector(".btn-success[data-bs-dismiss='modal']").addEventListener("click", function() {
+                form.submit();  // Enviar el formulario cuando el usuario haga clic en "Aceptar"
+            });
+        }
+    });
 });
 
 </script>
 
-<script src="assets/js/bootstrap.bundle.min.js"></script>
-<script src="assets/js/app.js"></script>
+
 </body>
 </html>
