@@ -109,7 +109,7 @@ if (isset($_GET['id'])) {
                 <div class="mb-3">
                     <label for="tipo" class="form-label">Tipo</label>
                     <select id="tipo" name="tipo" class="form-select" required>
-                        <option value="grabación" <?= $space['tipo'] === 'grabación' ? 'selected' : ''; ?>>Estudio de Grabación</option>
+                        <option value="grabacion" <?= $space['tipo'] === 'grabacion' ? 'selected' : ''; ?>>Estudio de Grabación</option>
                         <option value="ensayo" <?= $space['tipo'] === 'ensayo' ? 'selected' : ''; ?>>Sala de Ensayo</option>
                         <option value="eventos" <?= $space['tipo'] === 'eventos' ? 'selected' : ''; ?>>Sala de Eventos</option>
                     </select>

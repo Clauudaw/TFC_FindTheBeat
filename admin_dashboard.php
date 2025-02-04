@@ -211,7 +211,7 @@ $bookings = fetchAll($db, 'bookings');
                             <div class="mb-3">
                                 <label for="tipo" class="form-label">Tipo</label>
                                 <select class="form-select" id="tipo" name="tipo" required>
-                                    <option value="grabación">grabación</option>
+                                    <option value="grabacion">grabación</option>
                                     <option value="ensayo">ensayo</option>
                                     <option value="eventos">eventos</option>
                                 </select>
