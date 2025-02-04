@@ -100,9 +100,8 @@
             let contactForm = document.getElementById("contactForm");
             let thankYouModal = new bootstrap.Modal(document.getElementById("thankYouModal"));
 
-            // Expresiones regulares para validaciones
-            const nameRegex = /^[a-zA-Z\s]+$/;  // Solo letras y espacios
-            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;  // Validación de correo
+            const nameRegex = /^[a-zA-Z\s]+$/; 
+            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
             const subjectRegex = /.+/; 
             const messageRegex = /.+/;
 
@@ -153,17 +152,14 @@
                 return isValid;
             }
 
-            // Acción del formulario
             contactForm.addEventListener("submit", function (event) {
                 event.preventDefault(); 
 
-                // Validar antes de mostrar el modal
                 if (validateForm()) {
                 thankYouModal.show(); 
 
-                // Agregar el evento de clic en el botón "Aceptar"
                 document.querySelector(".btn-success[data-bs-dismiss='modal']").addEventListener("click", function() {
-                    contactForm.submit();  // Enviar el formulario cuando el usuario haga clic en "Aceptar"
+                    contactForm.submit();
                 });
                 
                 }
@@ -172,7 +168,6 @@
     </script>
 
     <style>
-        /* Estilos adicionales */
         .contacto {
             background: #ffffff;
             padding: 20px;

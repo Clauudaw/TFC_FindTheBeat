@@ -69,8 +69,8 @@
         </div>
     </div>
     
-    <div id="newsletter"></div> <!-- Aquí se cargará el formulario de Newsletter -->
-    <div id="footer"></div> <!-- Aquí se cargará el Footer -->
+    <div id="newsletter"></div>
+    <div id="footer"></div>
     <div id="arrowup"></div>
     
     <!-- Bootstrap JS -->

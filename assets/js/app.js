@@ -2,7 +2,7 @@
 async function loadContent(sectionId, url) {
     try {
         const section = document.getElementById(sectionId);
-        if (!section) return; // Evita errores si el elemento no existe
+        if (!section) return;
 
         const response = await fetch(url);
         if (!response.ok) {
@@ -10,7 +10,6 @@ async function loadContent(sectionId, url) {
         }
         section.innerHTML = await response.text();
 
-        // Inicializa el carrusel si el contenido cargado corresponde a él
         if (sectionId === 'carousel') {
             initializeCarousel();
         }
@@ -20,11 +19,10 @@ async function loadContent(sectionId, url) {
     }
 }
 
-// Función para inicializar el carrusel de Bootstrap
 function initializeCarousel() {
     const carouselElement = document.getElementById('carousel');
     if (carouselElement) {
-        new bootstrap.Carousel(carouselElement); // Inicializa el carrusel
+        new bootstrap.Carousel(carouselElement); 
     }
 }
 
@@ -37,18 +35,16 @@ document.addEventListener('DOMContentLoaded', () => {
         newsletter: '/components/newsletter.php',
         arrowup: '/components/arrowup.html',
         destacados: '/components/destacados.php',
-        carousel: '/components/carousel.html' // Se inicializa el carrusel después de cargar
+        carousel: '/components/carousel.html'
     };
 
     Object.entries(sections).forEach(([sectionId, url]) => loadContent(sectionId, url));
 
-    // Agregar evento al botón de filtros si existe
     const applyFiltersButton = document.getElementById('applyFilters');
     if (applyFiltersButton) {
         applyFiltersButton.addEventListener('click', applyFilters);
     }
 
-    // Agregar evento al botón de suscripción si existe
     const subscribeButton = document.getElementById('subscribeButton');
     if (subscribeButton) {
         subscribeButton.addEventListener('click', showModal_newsletter);
@@ -101,7 +97,6 @@ function applyFilters() {
         .catch(error => console.error('Error al cargar espacios:', error));
 }
 
-// Función para mostrar el modal de sesión
 function showModal() {
     const modalElement = document.getElementById('sessionModal');
     if (modalElement) {
@@ -112,7 +107,7 @@ function showModal() {
 
 // Función para mostrar el modal del newsletter
 function showModal_newsletter(event) {
-    event.preventDefault(); // Evita que el botón provoque la recarga de la página
+    event.preventDefault(); 
 
     const emailInput = document.getElementById('email');
     const modalMessage = document.getElementById('modalMessage');
@@ -128,7 +123,7 @@ function showModal_newsletter(event) {
     const modal = new bootstrap.Modal(modalElement);
     modal.show();
 
-    emailInput.value = ""; // Limpiar el campo de correo después de suscribirse
+    emailInput.value = ""; 
 }
 
 // Función para mostrar el modal de reserva
@@ -146,7 +141,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const passwordField = document.getElementById("password");
 
     togglePassword.addEventListener("click", function () {
-        // Alternar el tipo de input entre 'password' y 'text'
+        // Alternar entre 'password' y 'text' para que se vea la contraseña
         const type = passwordField.type === "password" ? "text" : "password";
         passwordField.type = type;
 

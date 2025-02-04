@@ -14,7 +14,7 @@ if (isset($_GET['id'])) {
     $stmt = $db->prepare("DELETE FROM reviews WHERE id = ?");
     $stmt->execute([$id]);
 
-    // Guardar mensaje en sesión y redirigir
+    // Guardar mensaje y redirigir
     $_SESSION['success'] = "✅ Se ha eliminado la reseña con exito.";
     header('Location: admin_dashboard.php');
     exit();

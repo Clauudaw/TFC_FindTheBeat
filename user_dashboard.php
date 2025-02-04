@@ -1,18 +1,15 @@
 <?php
-// Comprobar si el usuario está autenticado
 session_start();
-require_once 'db.php';
+require_once './db.php';
 
-// Asegúrate de que la sesión está activa y que el usuario tiene el rol de 'normal'
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'normal') {
-    header('Location: login.php'); // Redirige al login si no es usuario normal
+    header('Location: login.php');
     exit();
 }
 
 $is_normal = $_SESSION['role'] === 'normal';
 $user_id = $_SESSION['user_id'];
 
-// Función para obtener la información de los usuarios
 function fetchUser($db, $user_id)
 {
     $stmt = $db->prepare("SELECT * FROM users WHERE id = :id");
@@ -21,7 +18,6 @@ function fetchUser($db, $user_id)
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-// Función para obtener las reservas del usuario
 function fetchUserBookings($db, $user_id)
 {
     $stmt = $db->prepare("
@@ -52,7 +48,6 @@ function fetchUserBookings($db, $user_id)
 }
 
 
-// Función para obtener los comentarios del usuario
 function fetchUserReviews($db, $user_id)
 {
     $stmt = $db->prepare("SELECT * FROM reviews WHERE user_id = :user_id");
@@ -92,7 +87,7 @@ $reviews = fetchUserReviews($db, $user_id);
             <?= $_SESSION['error']; ?>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-        <?php unset($_SESSION['error']); ?> <!-- Elimina el mensaje después de mostrarlo -->
+        <?php unset($_SESSION['error']); ?>
     <?php endif; ?>
 
     <?php if (isset($_SESSION['success'])): ?>
@@ -100,7 +95,7 @@ $reviews = fetchUserReviews($db, $user_id);
             <?= $_SESSION['success']; ?>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-        <?php unset($_SESSION['success']); ?> <!-- Elimina el mensaje después de mostrarlo -->
+        <?php unset($_SESSION['success']); ?>
     <?php endif; ?>
 
     <div class="container mt-5">
@@ -117,10 +112,8 @@ $reviews = fetchUserReviews($db, $user_id);
 
             <div class="col-md-9">
                 <div class="tab-content">
-                    <!-- Mi Perfil -->
                     <div class="tab-pane fade show active" id="profile">
                         <h3>Mi Perfil</h3>
-                        <!-- Solo el usuario puede editar su propio perfil -->
                         <form action="update_user.php" method="POST">
                             <div class="mb-3">
                                 <label for="username" class="form-label">Nombre de usuario</label>
@@ -145,9 +138,6 @@ $reviews = fetchUserReviews($db, $user_id);
                             <button type="submit" class="btn btn-primary">Actualizar Información</button>
                         </form><br>
                     </div>
-
-
-
 
                     <!-- Mis Reservas -->
                     <div class="tab-pane fade" id="bookings">
@@ -174,7 +164,7 @@ $reviews = fetchUserReviews($db, $user_id);
                             <tbody>
                                 <?php foreach ($bookings as $booking): ?>
                                     <tr>
-                                        <td><?= $booking['space_title']; ?></td> <!-- Aquí mostramos el título del espacio -->
+                                        <td><?= $booking['space_title']; ?></td> 
                                         <td><?= $booking['estado']; ?></td>
                                         <td><?= $booking['fecha_reserva']; ?></td>
                                         <td><?= $booking['hora_inicio']; ?></td>

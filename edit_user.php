@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
     $stmt = $db->prepare("UPDATE users SET username = ?, email = ?, role = ? WHERE id = ?");
     $stmt->execute([$username, $email, $role, $id]);
 
-       // Guardar mensaje en sesión y redirigir
+       // Guardar mensaje y redirigir
        $_SESSION['success'] = "✅ Se ha editado el usuario con exito.";
        header('Location: admin_dashboard.php');
        exit();

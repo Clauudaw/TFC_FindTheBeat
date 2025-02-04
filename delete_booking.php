@@ -2,7 +2,6 @@
 session_start();
 require_once './db.php';
 
-// Verificar si el usuario está autenticado
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role'])) {
     header('Location: login.php');
     exit();

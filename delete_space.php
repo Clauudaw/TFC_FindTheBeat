@@ -14,7 +14,7 @@ if (isset($_GET['id'])) {
     $stmt = $db->prepare("DELETE FROM spaces WHERE id = ?");
     $stmt->execute([$id]);
 
-      // Guardar mensaje en sesión y redirigir
+      // Guardar mensaje  redirigir
       $_SESSION['success'] = "✅ Se ha eliminado el espacio con exito.";
       header('Location: admin_dashboard.php');
       exit();

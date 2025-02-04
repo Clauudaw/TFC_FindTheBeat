@@ -2,11 +2,9 @@
 session_start();
 include_once './db.php';
 
-// Inicializar variables de mensaje
 $mensaje = "";
 $tipo_mensaje = "";
 
-// Verificar si el formulario fue enviado
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username']);
     $email = trim($_POST['email']);
@@ -23,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $mensaje = "❌ Error: El usuario o el correo ya están registrados.";
         $tipo_mensaje = "danger";
     } else {
-        $role = 'normal'; // Por defecto, usuario normal
+        $role = 'normal'; //por defecto
 
         // Insertar usuario en la base de datos
         $sql = "INSERT INTO users (username, email, password, role) VALUES (:username, :email, :password, :role)";

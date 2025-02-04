@@ -19,7 +19,6 @@ if ($tipo) {
     $params[':tipo'] = $tipo;
 }
 
-// Ejecutar la consulta y manejar posibles errores
 try {
     $stmt = $db->prepare($query);
     $stmt->execute($params);
@@ -30,11 +29,11 @@ try {
     exit;
 }
 
-// Si la petición es AJAX, devolver solo los datos en formato JSON
+
 if (isset($_GET['ajax'])) {
-    header('Content-Type: application/json'); // Asegúrate de que la respuesta es JSON
-    echo json_encode($spaces); // Envía los espacios como JSON
-    exit; // Termina la ejecución para evitar enviar más contenido HTML
+    header('Content-Type: application/json'); 
+    echo json_encode($spaces); 
+    exit; 
 }
 ?>
 
@@ -116,40 +115,37 @@ if (isset($_GET['ajax'])) {
     .card {
         border: none;
         border-radius: 10px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Sombreado elegante */
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); 
         transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
         display: flex;
         flex-direction: column;
-        height: 100%; /* Hace que todas las tarjetas tengan la misma altura */
+        height: 100%;
     }
 
     .card-body {
-        flex-grow: 1; /* Hace que el contenido crezca para llenar el espacio disponible */
+        flex-grow: 1; 
         display: flex;
         flex-direction: column;
     }
 
     .card-body .btn {
-        margin-top: auto; /* Hace que el botón se empuje hacia el fondo de la tarjeta */
+        margin-top: auto; 
     }
 
     .card:hover {
-        transform: translateY(-8px); /* Se mueve ligeramente hacia arriba */
-        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.30); /* Sombra más pronunciada */
+        transform: translateY(-8px); 
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.30); 
     }
 
-    /* Asegurarse de que las tarjetas tengan al menos la misma altura */
     .row {
         display: flex;
         flex-wrap: wrap;
     }
 
-    /* Opcional: Poner un mínimo de altura para las tarjetas */
     .card {
         min-height: 350px;
     }
 
-    /* Se asegura de que el contenedor de los espacios tenga espacio suficiente */
     .espacios {
         margin-left: 3em;
     }

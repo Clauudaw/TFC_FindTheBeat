@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['user_id'])) {
         die("Error: Datos inválidos.");
     }
 
-    // Insertar en la base de datos
+    // Insertar reseñas en la base de datos
     $stmt = $db->prepare("INSERT INTO reviews (user_id, space_id, rating, comment, created_at, updated_at) 
                           VALUES (:user_id, :space_id, :rating, :comment, NOW(), NOW())");
     $stmt->execute([

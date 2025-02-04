@@ -1,5 +1,4 @@
 /*Estilos migas de pan*/
-/* Estilos para las migas de pan */
 nav[aria-label="breadcrumb"] {
     padding: 10px 15px;
 }
@@ -25,25 +24,25 @@ nav[aria-label="breadcrumb"] {
 
 /* Estilo para el enlace de la primera página (inicio) */
 .breadcrumb-item:first-child .breadcrumb-link {
-    color: #6c757d; /* Gris para la primera página */
+    color: #6c757d; 
 }
 
 .breadcrumb-item:first-child .breadcrumb-link:hover {
-    color: #5a6268; /* Gris oscuro para hover */
+    color: #5a6268; 
 }
 
 /* Estilo para el enlace de la página actual */
 .breadcrumb-item.active .breadcrumb-link {
-    color: #336B56; /* Verde de la compañía */
+    color: #336B56; 
 }
 
 /* Estilo general para los enlaces de las páginas intermedias */
 .breadcrumb-item:not(:first-child):not(.active) .breadcrumb-link {
-    color: #6c757d; /* Gris para los enlaces intermedios */
+    color: #6c757d; 
 }
 
 .breadcrumb-item:not(:first-child):not(.active) .breadcrumb-link:hover {
-    color: #5a6268; /* Gris oscuro para hover */
+    color: #5a6268; 
 }
 
 
@@ -54,7 +53,7 @@ nav[aria-label="breadcrumb"] {
 }
 
 .breadcrumb-item.active {
-    color: #6c757d; /* Gris para la página actual */
+    color: #6c757d; 
 }
 
 /*Fin Estilos migas de pan*/
@@ -75,73 +74,64 @@ nav[aria-label="breadcrumb"] {
     outline: none !important;
 }
 
-/* Estilo normal del select */
 .form-select {
-    border: 1px solid #3D8168; /* Borde con el color de la empresa */
+    border: 1px solid #3D8168; 
     transition: all 0.3s ease-in-out;
 }
 
-/* Cambiar color al hacer hover */
 .form-select:hover {
     border-color: #3D8168;
     box-shadow: 0 0 5px rgba(61, 129, 104, 0.5);
 }
 
-/* Cambiar color cuando está seleccionado */
 .form-select:focus {
     border-color: #3D8168;
     box-shadow: 0 0 8px rgba(61, 129, 104, 0.75);
 }
 
-/* Cambiar color del fondo del select cuando está activo */
 .form-select:active {
     background-color: #E8F5E9;
 }
 
-/* Opcional: Cambiar el color del texto */
 .form-select option {
     color: black;
     background-color: white;
 }
 
-/* Intento de cambiar el hover en options (limitado en navegadores) */
 .form-select option:hover {
     background-color: #3D8168 !important;
     color: white;
 }
 
-
 /*Fin estilos inputs de formularios*/
 
-/*scrollbar*/
-/* Scrollbar en navegadores basados en WebKit (Chrome, Edge, Safari) */
 ::-webkit-scrollbar {
-    width: 30px; /* Ancho de la barra vertical */
-    height: 10px; /* Alto de la barra horizontal (si aplica) */
+    width: 30px; 
+    height: 10px; 
 }
 
-/* Fondo del scrollbar */
+
 ::-webkit-scrollbar-track {
-    background: #f1f1f1; /* Color de fondo */
-    border-radius: 5px; /* Bordes redondeados */
+    background: #f1f1f1; 
+    border-radius: 20px; 
 }
 
-/* Color y diseño del thumb (la parte desplazable) */
+
 ::-webkit-scrollbar-thumb {
-    background: #3D8168; /* Color de la empresa */
-    border-radius: 5px; /* Bordes redondeados */
-    border: 2px solid #f1f1f1; /* Borde opcional para destacar */
+    background: #3D8168; 
+    border-radius: 20px; 
+    border: 2px solid #f1f1f1; 
 }
 
 /* Hover en el thumb */
 ::-webkit-scrollbar-thumb:hover {
-    background: #2b5e4c; /* Un tono más oscuro para efecto visual */
+    background: #2b5e4c; 
 }
 
 /* Scrollbar en Firefox */
 * {
-    scrollbar-width: thin; /* Hace el scrollbar más delgado */
-    scrollbar-color: #3D8168 #f1f1f1; /* thumb | track */
+    scrollbar-width:thin; 
+    scrollbar-color: #3D8168 #f1f1f1;
 }
 
 /*Fin scrollbar*/

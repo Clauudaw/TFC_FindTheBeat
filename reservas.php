@@ -1,23 +1,16 @@
 <?php
-// Iniciar sesión para obtener el user_id del usuario logueado
 session_start();
+include './db.php';
 
-// Verificar si el usuario está logueado
 if (!isset($_SESSION['user_id'])) {
-    // Si no está logueado, redirigir al login o mostrar un mensaje de error
     die("Debes iniciar sesión para hacer una reserva.");
 }
 
-// Obtener el ID del usuario desde la sesión
 $user_id = $_SESSION['user_id'];
 
-// Conectar a la base de datos
-include './db.php';
-
-// Obtener el ID del espacio desde la URL
 $space_id = isset($_GET['space_id']) ? (int)$_GET['space_id'] : 0;
 
-// Verificar si se ha enviado el formulario
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nombre = htmlspecialchars($_POST['nombre']);
     $apellidos = htmlspecialchars($_POST['apellidos']);
@@ -51,18 +44,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ':hora_fin' => $hora_fin
     ]);
 
-    // Si la inserción es exitosa, guarda el estado en una variable de sesión
     $_SESSION['reservation_success'] = true;
 
-    // Redirigir al mismo formulario después de la reserva
     header("Location: " . $_SERVER['REQUEST_URI']);
     exit();
 }
 
-// Obtener el ID del espacio desde la URL
 $space_id = isset($_GET['space_id']) ? (int) $_GET['space_id'] : 0;
 
-// Obtener información del espacio
 $stmt = $db->prepare("SELECT titulo, imagen, precio, direccion, descripcion FROM spaces WHERE id = :space_id");
 $stmt->execute([':space_id' => $space_id]);
 $space = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -284,7 +273,6 @@ $space = $stmt->fetch(PDO::FETCH_ASSOC);
                     const mes = hoy.getMonth();
                     const dia = hoy.getDate();
 
-                    // Verificar si aún no ha cumplido años este año
                     if (mes < nacimiento.getMonth() || (mes === nacimiento.getMonth() && dia < nacimiento.getDate())) {
                         edad--;
                     }
@@ -301,7 +289,7 @@ $space = $stmt->fetch(PDO::FETCH_ASSOC);
                     fecha_nacimientoError.textContent = "Debes tener al menos 18 años.";
                     isValid = false;
                 } else {
-                    fecha_nacimientoError.textContent = ""; // Limpiar mensaje de error si la edad es válida
+                    fecha_nacimientoError.textContent = ""; 
                 }
 
 
@@ -312,12 +300,10 @@ $space = $stmt->fetch(PDO::FETCH_ASSOC);
                 event.preventDefault();
 
                 if (validateForm()) {
-                    // Aquí puedes enviar los datos al servidor si es necesario
                     thankYouModal.show();
 
-                    // Agregar el evento de clic en el botón "Aceptar"
                     document.querySelector(".btn-success[data-bs-dismiss='modal']").addEventListener("click", function() {
-                        form.submit(); // Enviar el formulario cuando el usuario haga clic en "Aceptar"
+                        form.submit();
                     });
                 }
             });

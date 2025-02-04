@@ -10,7 +10,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
-    // Verificar si el usuario tiene reservas
+    // Verificar si el usuario tiene reservas para que no se pueda eliminar
     $stmt = $db->prepare("SELECT COUNT(*) FROM bookings WHERE user_id = ?");
     $stmt->execute([$id]);
     $count = $stmt->fetchColumn();

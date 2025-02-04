@@ -31,7 +31,7 @@
                                 </svg> <?= htmlspecialchars($_SESSION['username']); ?>
                             </a>
                         </li>
-                        <li class="nav-item"><a class="btn btn-danger ms-3" href="/logout.php">Cerrar sesión</a></li>
+                        <li class="nav-item"><a class="btn btn-secondary ms-3" href="/logout.php">Cerrar sesión</a></li>
                     <?php else: ?>
                         <li class="nav-item">
                             <a href="/login.php" class="btn btn-primary ms-3">

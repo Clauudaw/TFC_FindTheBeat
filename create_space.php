@@ -8,9 +8,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     exit();
 }
 
-// Verifica si el formulario ha sido enviado
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Obtener los datos del formulario
     $titulo = $_POST['titulo'];
     $descripcion = $_POST['descripcion'] ?? null;
     $precio = $_POST['precio'];

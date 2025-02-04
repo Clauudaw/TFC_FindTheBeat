@@ -7,11 +7,9 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     exit();
 }
 
-// Verifica si el formulario ha sido enviado
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
-    $booking_id = $_POST['id']; // Asegurar que obtenemos el ID de la reserva correctamente
+    $booking_id = $_POST['id'];
 
-    // Obtener los datos del formulario
     $user_id = $_POST['user_id'];
     $space_id = $_POST['space_id'];
     $estado = $_POST['estado'];
@@ -36,7 +34,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
     exit();
 }
 
-// Verifica si se ha pasado un ID de reserva en la URL
 if (!isset($_GET['id'])) {
     $_SESSION['error'] = "⚠️ No se encontró la reserva.";
     header('Location: admin_dashboard.php');
@@ -45,12 +42,10 @@ if (!isset($_GET['id'])) {
 
 $booking_id = $_GET['id'];
 
-// Obtener los datos de la reserva desde la base de datos
 $stmt = $db->prepare("SELECT * FROM bookings WHERE id = ?");
 $stmt->execute([$booking_id]);
 $booking = $stmt->fetch(PDO::FETCH_ASSOC);
 
-// Si no se encuentra la reserva, redirigir con error
 if (!$booking) {
     $_SESSION['error'] = "❌ La reserva no existe.";
     header('Location: admin_dashboard.php');
