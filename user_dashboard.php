@@ -222,7 +222,6 @@ $reviews = fetchUserReviews($db, $user_id);
     </div>
 
 
-    <div id="footer"></div>
     <!-- Bootstrap JS -->
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/app.js"></script>

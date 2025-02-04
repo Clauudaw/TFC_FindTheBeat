@@ -37,7 +37,7 @@ $bookings = fetchAll($db, 'bookings');
 <body>
 
     <?php include 'components/header.php'; ?>
-
+<br>
     <?php if (isset($_SESSION['error'])): ?>
         <div class="alert alert-warning alert-dismissible fade show mt-3" role="alert">
             <?= $_SESSION['error']; ?>
@@ -386,7 +386,6 @@ $bookings = fetchAll($db, 'bookings');
         </div>
     </div>
     </div>
-    <div id="footer"></div>
 
 
     <!-- Bootstrap JS -->

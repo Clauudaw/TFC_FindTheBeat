@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once './db.php';
+require_once 'db.php';
 
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     header('Location: login.php');
@@ -79,7 +79,13 @@ if (!$booking) {
         <div class="card shadow-sm rounded p-4">
             <h3 class="mb-4 text-center">Editar Reserva</h3>
             <form action="edit_booking.php" method="POST">
-                <input type="hidden" name="booking_id" value="<?= $booking['id']; ?>">
+                <input type="hidden" name="id" value="<?= $booking['id']; ?>">
+
+                <div class="mb-3">
+                    <label for="user_id" class="form-label">Usuario</label>
+                    <input type="text" id="user_id" name="user_id" class="form-control" 
+                           value="<?= $booking['user_id']; ?>" required>
+                </div>
 
                 <div class="mb-3">
                     <label for="space_id" class="form-label">Espacio</label>
