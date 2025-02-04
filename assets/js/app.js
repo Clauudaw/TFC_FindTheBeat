@@ -76,7 +76,7 @@ function applyFilters() {
             }
 
             data.forEach(space => {
-                let imagenRuta = `/assets/images/${space.tipo}/${space.titulo}/img1.png`;
+                let imagenRuta = `/assets/images/${space.tipo}/${space.id}/img1.png`;
                 let card = `
                     <div class="col-md-4 col-sm-6 mb-4">
                         <div class="card">
