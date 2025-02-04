@@ -16,7 +16,7 @@ if (!$space) {
 }
 
 // Ruta base de las imágenes
-$imagenBase = "assets/images/" . $space['tipo'] . "/" . $space['titulo'] . "/";
+$imagenBase = "assets/images/" . $space['tipo'] . "/" . $space['id'] . "/";
 
 // Buscar imágenes en la carpeta (img1.png, img2.png, ..., img6.png)
 $imagenes = [];
