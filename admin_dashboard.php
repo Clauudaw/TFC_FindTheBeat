@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once './db.php'; // Conexión a la base de datos
+require_once './db.php'; 
 
 // Verifica que el usuario es admin
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
