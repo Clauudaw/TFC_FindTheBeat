@@ -8,18 +8,18 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
         <div class="container">
-            <!-- Logo -->
+
             <a class="navbar-brand" href="/index.php">
                 <img src="assets/images/logo_FindTheBeat_verde_img.png" alt="Find The Beat Logo" class="logo-find-the-beat">
                 <img src="assets/images/logo_FindTheBeat_verde_letras.png" alt="Find The Beat Logo" class="logo-find-the-beat_letras">
             </a>
 
-            <!-- Botón menú en móviles -->
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <!-- Links de navegación -->
+
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
@@ -53,17 +53,16 @@
         </div>
     </nav>      
     <style>
-        /* Estilos personalizados */
         #header {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            z-index: 1000; /* Asegúrate de que esté encima de otros elementos */
+            z-index: 1000; 
         }
       
         body {
-            padding-top: 60px; /* Ajusta este valor según la altura de tu header */
+            padding-top: 60px; 
         }
 
         .logo-find-the-beat {
@@ -77,32 +76,30 @@
         .navbar {
             background: white;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            z-index: 1030; /* Mantenerla sobre otros elementos */
+            z-index: 1030; 
         }
       
         .navbar .nav-link {
-            color: #000; /* Asegúrate de que tenga un color visible */
+            color: #000; 
             text-decoration: none;
         }
       
         .navbar .nav-link:hover {
-            color: #3D8168; /* Color en hover */
+            color: #3D8168; 
         }
       
-        /* Botón de inicio de sesión */
         .btn-primary {
             background-color: #3D8168 !important;
             border-color: #3D8168 !important;
         }
       
         .btn-primary:hover {
-            background-color: #336B56 !important; /* Color más oscuro en hover */
+            background-color: #336B56 !important; 
             border-color: #336B56 !important;
         }
       
-        /* Ajustar el espacio del contenido principal debido a la barra fija */
         .main-content {
-            padding-top: 4.5rem; /* Altura de la navbar para evitar que el contenido quede debajo */
+            padding-top: 4.5rem; 
         }
       
         @media (max-width: 1024px) {

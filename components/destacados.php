@@ -2,7 +2,6 @@
 include './db.php';
 include './components/header.php';
 
-// Obtener los espacios destacados (IDs 1, 5 y 9)
 $query = "SELECT * FROM spaces WHERE id IN (1, 5, 9)";
 $stmt = $db->prepare($query);
 $stmt->execute();
@@ -21,7 +20,6 @@ $featuredSpaces = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
 
-<!-- Destacados Section -->
 <div class="container my-5">
     <div class="destacados">
         <h2 class="text-center mb-4">Descubre los espacios más populares</h2>
@@ -59,28 +57,26 @@ $featuredSpaces = $stmt->fetchAll(PDO::FETCH_ASSOC);
         transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
         display: flex;
         flex-direction: column;
-        height: 100%; /* Hace que todas las tarjetas tengan la misma altura */
+        height: 100%; 
     }
     .card-body {
-        flex-grow: 1; /* Hace que el contenido crezca para llenar el espacio disponible */
+        flex-grow: 1;
         display: flex;
         flex-direction: column;
     }
     .card-body .btn {
-        margin-top: auto; /* Hace que el botón se empuje hacia el fondo de la tarjeta */
+        margin-top: auto; 
     }
     .card:hover {
         transform: translateY(-8px);
         box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.30);
     }
 
-    /* Asegurarse de que las tarjetas tengan al menos la misma altura */
     .row {
         display: flex;
         flex-wrap: wrap;
     }
 
-    /* Opcional: Poner un mínimo de altura para las tarjetas */
     .card {
         min-height: 350px;
     }

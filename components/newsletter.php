@@ -1,5 +1,4 @@
 <style>
-   /* Estilos personalizados para el modal de la newsletter */
 .modal-newsletter .modal-content {
   border-radius: 10px;
   border: 2px solid rgb(53, 112, 90);
@@ -54,7 +53,6 @@
   </section>
 
 
-  <!-- Modal -->
   <div class="modal fade modal-newsletter" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -65,7 +63,6 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body" id="modalMessage">
-          <!-- Aquí se mostrará el mensaje del modal -->
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -76,10 +73,9 @@
 
   <!-- Script JS -->
   <script>
-    // Función que muestra el modal con el mensaje adecuado
     function showAlert() {
-      const email = document.getElementById('newsletteremail').value.trim(); // Obtener el correo ingresado
-      console.log('Correo ingresado:', email); // Verificamos que se esté obteniendo el correo
+      const email = document.getElementById('newsletteremail').value.trim(); 
+      console.log('Correo ingresado:', email); 
 
       let message = '';
       if (email) {
@@ -88,10 +84,8 @@
         message = 'Por favor, ingresa un correo válido.';
       }
 
-      // Cambiar el contenido del modal
       document.getElementById('modalMessage').textContent = message;
 
-      // Mostrar el modal
       const myModal = new bootstrap.Modal(document.getElementById('alertModal'));
       myModal.show();
     }
