@@ -1,8 +1,8 @@
 <?php
 session_start();
-require_once './db.php'; // Conexión a la base de datos
+require_once './db.php';
 
-// Verifica que el usuario es admin
+
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     header('Location: login.php');
     exit();
@@ -37,7 +37,7 @@ $bookings = fetchAll($db, 'bookings');
 <body>
 
     <?php include 'components/header.php'; ?>
-<br>
+    <br>
     <?php if (isset($_SESSION['error'])): ?>
         <div class="alert alert-warning alert-dismissible fade show mt-3" role="alert">
             <?= $_SESSION['error']; ?>
@@ -56,7 +56,6 @@ $bookings = fetchAll($db, 'bookings');
 
     <div class="container mt-5">
         <h2>Bienvenido al Panel de Administración</h2>
-
         <div class="row mt-4">
             <div class="col-md-3">
                 <div class="list-group">
@@ -68,7 +67,6 @@ $bookings = fetchAll($db, 'bookings');
             </div>
             <div class="col-md-9">
                 <div class="tab-content">
-                    <!-- Tabla de Usuarios -->
                     <div class="tab-pane fade show active" id="users">
                         <h3>Usuarios</h3>
                         <table class="table table-striped">
@@ -101,8 +99,6 @@ $bookings = fetchAll($db, 'bookings');
                             </tbody>
                         </table>
 
-
-                        <!-- Formulario para Crear Usuario -->
                         <h4>Crear Usuario</h4>
                         <form action="create_user.php" method="POST">
                             <div class="mb-3">
@@ -126,10 +122,8 @@ $bookings = fetchAll($db, 'bookings');
                             </div>
                             <button type="submit" class="btn btn-primary">Crear Usuario</button>
                         </form><br>
-
                     </div>
 
-                    <!-- Tabla de Espacios -->
                     <div class="tab-pane fade" id="spaces">
                         <h3>Espacios</h3>
                         <table class="table table-striped">
@@ -172,8 +166,6 @@ $bookings = fetchAll($db, 'bookings');
                             </tbody>
                         </table>
 
-
-                        <!-- Formulario para Crear Espacio -->
                         <h4>Crear Espacio</h4>
                         <form action="create_space.php" method="POST">
                             <div class="mb-3">
@@ -220,7 +212,6 @@ $bookings = fetchAll($db, 'bookings');
                         </form><br>
                     </div>
 
-                    <!-- Tabla de Reseñas -->
                     <div class="tab-pane fade" id="reviews">
                         <h3>Reseñas</h3>
                         <table class="table table-striped">
@@ -253,13 +244,8 @@ $bookings = fetchAll($db, 'bookings');
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
-
-
-
                     </div>
 
-
-                    <!-- Tabla de Reservas -->
                     <div class="tab-pane fade" id="bookings">
                         <h3>Reservas</h3>
                         <table class="table table-striped">
@@ -312,8 +298,6 @@ $bookings = fetchAll($db, 'bookings');
                             </tbody>
                         </table>
 
-
-                        <!-- Formulario para nueva reserva -->
                         <div class="mt-4">
                             <h4>Añadir Nueva Reserva</h4>
                             <form action="create_booking.php" method="POST">
@@ -393,7 +377,6 @@ $bookings = fetchAll($db, 'bookings');
     <script src="./assets/js/app.js"></script>
 
     <script>
-        // Función para confirmar la eliminación
         function confirmDelete(event) {
             event.preventDefault();
 
@@ -404,7 +387,7 @@ $bookings = fetchAll($db, 'bookings');
             }
         }
 
-        // Añadir el evento a todos los botones de eliminar
+
         document.querySelectorAll('.btn-danger').forEach(button => {
             button.addEventListener('click', confirmDelete);
         });

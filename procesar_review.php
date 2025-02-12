@@ -8,12 +8,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['user_id'])) {
     $rating = $_POST['rating'];
     $comment = $_POST['comment'];
 
-    // Validar entrada
     if ($rating < 1 || $rating > 5 || empty($comment)) {
         die("Error: Datos inválidos.");
     }
 
-    // Insertar reseñas en la base de datos
     $stmt = $db->prepare("INSERT INTO reviews (user_id, space_id, rating, comment, created_at, updated_at) 
                           VALUES (:user_id, :space_id, :rating, :comment, NOW(), NOW())");
     $stmt->execute([

@@ -10,7 +10,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email']);
     $password = $_POST['password'];
 
-    // Verificar si el usuario o email ya existen
     $sql_check = "SELECT id FROM users WHERE username = :username OR email = :email";
     $stmt_check = $db->prepare($sql_check);
     $stmt_check->bindParam(':username', $username);
@@ -21,9 +20,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $mensaje = "❌ Error: El usuario o el correo ya están registrados.";
         $tipo_mensaje = "danger";
     } else {
-        $role = 'normal'; //por defecto
+        $role = 'normal'; 
 
-        // Insertar usuario en la base de datos
         $sql = "INSERT INTO users (username, email, password, role) VALUES (:username, :email, :password, :role)";
         $stmt = $db->prepare($sql);
         $stmt->bindParam(':username', $username);

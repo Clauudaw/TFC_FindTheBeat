@@ -23,7 +23,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $hora_inicio = $_POST['hora_inicio'];
     $hora_fin = $_POST['hora_fin'];
 
-    // Insertar la reserva en la base de datos
     $stmt = $db->prepare("INSERT INTO bookings 
         (space_id, user_id, nombre, apellidos, dni, correo, fecha_nacimiento, telefono, metodo_pago, fecha_reserva, hora_inicio, hora_fin, estado, created_at, updated_at) 
         VALUES 
@@ -98,7 +97,6 @@ $space = $stmt->fetch(PDO::FETCH_ASSOC);
         <div class="row justify-content-center">
             <div class="col-lg-10">
                 <div class="row">
-                    <!-- Caja de la izquierda -->
                     <div class="col-md-4">
                         <div class="card shadow">
                             <img src="<?php echo $space['imagen']; ?>" class="card-img-top">
@@ -110,7 +108,6 @@ $space = $stmt->fetch(PDO::FETCH_ASSOC);
                             </div>
                         </div>
                     </div>
-                    <!-- Formulario de reserva -->
                     <div class="col-md-8">
                         <div class="card shadow p-4">
                             <h1 class="text-center mb-4">Reservar este Espacio</h1>
@@ -185,7 +182,6 @@ $space = $stmt->fetch(PDO::FETCH_ASSOC);
     </div>
     <div id="footer"></div>
 
-    <!-- Modal de confirmación -->
     <div class="modal fade" id="thankYouModal" tabindex="-1" aria-labelledby="thankYouModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
