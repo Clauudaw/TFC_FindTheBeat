@@ -21,7 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
     $stmt = $db->prepare("UPDATE spaces SET titulo = ?, descripcion = ?, precio = ?, direccion = ?, provincia = ?, comunidad_autonoma = ?, capacidad = ?, tipo = ? WHERE id = ?");
     $stmt->execute([$titulo, $descripcion, $precio, $direccion, $provincia, $comunidad_autonoma, $capacidad, $tipo, $id]);
 
-     // Guardar mensaje y redirigir
      $_SESSION['success'] = "✅ Se ha editado el espacio con exito.";
      header('Location: admin_dashboard.php');
      exit();
@@ -50,7 +49,6 @@ if (isset($_GET['id'])) {
 <body class="bg-light">
 <?php include './components/header.php' ?><br>
 
-<!-- Breadcrumb de navegación -->
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="/admin_dashboard.php" class="breadcrumb-link">Panel de Administración</a></li>

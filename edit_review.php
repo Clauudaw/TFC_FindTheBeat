@@ -17,7 +17,6 @@ if (!isset($_GET['id'])) {
 
 $review_id = $_GET['id'];
 
-// Obtener la reseña del usuario
 $stmt = $db->prepare("SELECT * FROM reviews WHERE id = ? AND user_id = ?");
 $stmt->execute([$review_id, $user_id]);
 $review = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -68,7 +67,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body class="bg-light">
     <?php include './components/header.php'; ?><br>
 
-    <!-- Breadcrumb de navegación -->
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="user_dashboard.php" class="breadcrumb-link">Panel de Usuario</a></li>

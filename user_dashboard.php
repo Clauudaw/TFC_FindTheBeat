@@ -139,7 +139,6 @@ $reviews = fetchUserReviews($db, $user_id);
                         </form><br>
                     </div>
 
-                    <!-- Mis Reservas -->
                     <div class="tab-pane fade" id="bookings">
                         <h3>Mis Reservas</h3>
                         <table class="table table-striped">
@@ -187,7 +186,6 @@ $reviews = fetchUserReviews($db, $user_id);
                         </table>
                     </div>
 
-                    <!-- Mis Reseñas -->
                     <div class="tab-pane fade" id="reviews">
                         <h3>Mis Reseñas</h3>
                         <table class="table table-striped">

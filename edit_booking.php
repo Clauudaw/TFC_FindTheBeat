@@ -24,11 +24,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
     $hora_inicio = $_POST['hora_inicio'];
     $hora_fin = $_POST['hora_fin'];
 
-    // Preparar y ejecutar la consulta SQL para actualizar la reserva
     $stmt = $db->prepare("UPDATE bookings SET user_id = ?, space_id = ?, estado = ?, nombre = ?, apellidos = ?, dni = ?, correo = ?, fecha_nacimiento = ?, telefono = ?, metodo_pago = ?, fecha_reserva = ?, hora_inicio = ?, hora_fin = ? WHERE id = ?");
     $stmt->execute([$user_id, $space_id, $estado, $nombre, $apellidos, $dni, $correo, $fecha_nacimiento, $telefono, $metodo_pago, $fecha_reserva, $hora_inicio, $hora_fin, $booking_id]);
 
-    // Guardar mensaje en sesión y redirigir
     $_SESSION['success'] = "✅ La reserva ha sido actualizada correctamente.";
     header('Location: admin_dashboard.php');
     exit();
@@ -66,7 +64,6 @@ if (!$booking) {
 <body class="bg-light">
 <?php include './components/header.php' ?><br>
 
-<!-- Breadcrumb de navegación -->
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="/admin_dashboard.php" class="breadcrumb-link">Panel de Administración</a></li>

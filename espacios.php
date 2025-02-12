@@ -2,11 +2,9 @@
 session_start();
 include './db.php';
 
-
 $provincia = isset($_GET['provincia']) ? $_GET['provincia'] : '';
 $tipo = isset($_GET['tipo']) ? $_GET['tipo'] : '';
 
-// Construir la consulta con filtros dinámicos
 $query = "SELECT * FROM spaces WHERE 1=1";
 $params = [];
 
@@ -60,8 +58,6 @@ if (isset($_GET['ajax'])) {
         </ol>
     </nav>
 
-
-    <!-- Filtros -->
     <div class="filtros container my-4">
         <div class="row justify-content-center">
             <div class="col-md-3 col-sm-4 mb-3">
@@ -88,7 +84,6 @@ if (isset($_GET['ajax'])) {
         </div>
     </div>
 
-    <!-- Contenedor de espacios -->
     <div id="spaces" class="espacios container my-4 col-12 row">
         <?php foreach ($spaces as $space): ?>
             <div class="col-lg-4 col-md-6 col-12 mb-4">

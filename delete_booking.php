@@ -10,7 +10,6 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['role'])) {
 $user_id = $_SESSION['user_id'];
 $user_role = $_SESSION['role'];
 
-// Verificar si se ha pasado el ID de la reserva
 if (!isset($_GET['id'])) {
     $_SESSION['error'] = "❌ ID de reserva no válido.";
     header('Location: user_dashboard.php');
@@ -21,7 +20,6 @@ $booking_id = $_GET['id'];
 
 try {
     if ($user_role === 'admin') {
-        // Si es admin, puede eliminar cualquier reserva
         $stmt = $db->prepare("DELETE FROM bookings WHERE id = ?");
         $stmt->execute([$booking_id]);
 
@@ -29,7 +27,6 @@ try {
         header('Location: admin_dashboard.php');
         exit();
     } elseif ($user_role === 'normal') {
-        // Si es usuario normal, solo puede eliminar sus propias reservas
         $stmt = $db->prepare("DELETE FROM bookings WHERE id = ? AND user_id = ?");
         $stmt->execute([$booking_id, $user_id]);
 

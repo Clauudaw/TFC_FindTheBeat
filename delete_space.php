@@ -10,11 +10,9 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
-    // Eliminar espacio
     $stmt = $db->prepare("DELETE FROM spaces WHERE id = ?");
     $stmt->execute([$id]);
 
-      // Guardar mensaje  redirigir
       $_SESSION['success'] = "✅ Se ha eliminado el espacio con exito.";
       header('Location: admin_dashboard.php');
       exit();

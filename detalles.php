@@ -15,10 +15,8 @@ if (!$space) {
     die("Espacio no encontrado.");
 }
 
-// Ruta base de las imágenes
 $imagenBase = "assets/images/" . $space['tipo'] . "/" . $space['id'] . "/";
 
-// Buscar imágenes en la carpeta (img1.png, img2.png, ..., img6.png)
 $imagenes = [];
 for ($i = 1; $i <= 6; $i++) {
     $rutaImagen = $imagenBase . "img{$i}.png";
@@ -109,7 +107,7 @@ for ($i = 1; $i <= 6; $i++) {
                                 </div>
                             <?php endforeach; ?>
                         </div>
-                        <!-- Controles del carrusel -->
+                        
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselEspacio" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Anterior</span>
@@ -144,7 +142,6 @@ for ($i = 1; $i <= 6; $i++) {
         </div>
     </div>
 
-    <!-- Modal de inicio de sesión requerido -->
     <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -163,7 +160,6 @@ for ($i = 1; $i <= 6; $i++) {
         </div>
     </div>
 
-    <!-- Sección de Comentarios -->
     <?php
     $stmt = $db->prepare("SELECT r.rating, r.comment, r.created_at, u.username FROM reviews r 
                       JOIN users u ON r.user_id = u.id 
@@ -194,7 +190,6 @@ for ($i = 1; $i <= 6; $i++) {
             <p class="text-muted">Aún no hay comentarios. Sé el primero en dejar tu opinión.</p>
         <?php endif; ?>
 
-        <!-- Formulario para dejar un comentario -->
         <?php if (isset($_SESSION['user_id'])): ?>
             <div class="card mt-4">
                 <div class="card-header">Deja tu Reseña</div>

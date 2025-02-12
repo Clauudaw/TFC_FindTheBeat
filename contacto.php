@@ -34,12 +34,11 @@
                 <span class="fw-bold">Horario de atención:</span> Lunes a Viernes, 9:00h - 18:00h.
             </p>
 
-            <!-- Imagen a la izquierda -->
+  
             <div class="col-md-4 mb-4 mb-md-0 text-center">
                 <img src="/assets/images/contacto.jpg" alt="Contáctanos" class="img-fluid contact-img">
             </div>
             
-            <!-- Formulario a la derecha -->
             <div class="col-md-8">
                 <form id="contactForm" class="contacto" action="process_contact.php" method="POST">
                     <div class="mb-3">
@@ -69,7 +68,6 @@
     </div>
 
 
-    <!-- Modal de confirmación -->
     <div class="modal fade" id="thankYouModal" tabindex="-1" aria-labelledby="thankYouModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -105,11 +103,11 @@
             const subjectRegex = /.+/; 
             const messageRegex = /.+/;
 
-            // Función de validación
+
             function validateForm() {
                 let isValid = true;
 
-                // Validación del nombre
+  
                 const name = document.getElementById("name");
                 const nameError = document.getElementById("nameError");
                 if (!name.value.match(nameRegex)) {
@@ -119,7 +117,7 @@
                     nameError.textContent = "";
                 }
 
-                // Validación del correo electrónico
+
                 const email = document.getElementById("email");
                 const emailError = document.getElementById("emailError");
                 if (!email.value.match(emailRegex)) {
@@ -129,7 +127,6 @@
                     emailError.textContent = "";
                 }
 
-                // Validación del asunto
                 const subject = document.getElementById("subject");
                 const subjectError = document.getElementById("subjectError");
                 if (!subject.value.match(subjectRegex)) {
@@ -139,7 +136,7 @@
                     subjectError.textContent = "";
                 }
 
-                // Validación del mensaje
+
                 const message = document.getElementById("message");
                 const messageError = document.getElementById("messageError");
                 if (!message.value.match(messageRegex)) {
