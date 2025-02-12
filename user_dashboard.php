@@ -1,10 +1,9 @@
 <?php
 session_start();
-require_once './db.php';
+require_once 'db.php';
 
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'normal') {
-    header('Location: login.php');
-    exit();
+    echo "<script>window.location.href='login.php';</script>";
 }
 
 $is_normal = $_SESSION['role'] === 'normal';
@@ -47,14 +46,24 @@ function fetchUserBookings($db, $user_id)
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-
 function fetchUserReviews($db, $user_id)
 {
-    $stmt = $db->prepare("SELECT * FROM reviews WHERE user_id = :user_id");
+    $stmt = $db->prepare("
+        SELECT 
+            r.id, 
+            r.space_id, 
+            r.comment, 
+            r.rating, 
+            s.titulo AS space_title  -- Obtenemos el nombre del espacio
+        FROM reviews r
+        JOIN spaces s ON r.space_id = s.id  -- Hacemos JOIN con la tabla spaces
+        WHERE r.user_id = :user_id
+    ");
     $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
 
 if ($is_normal) {
     $user = fetchUser($db, $user_id);
@@ -72,8 +81,8 @@ $reviews = fetchUserReviews($db, $user_id);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel de Usuario</title>
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 </head>
 
@@ -193,7 +202,6 @@ $reviews = fetchUserReviews($db, $user_id);
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
                                     <th>Espacio</th>
                                     <th>Comentario</th>
                                     <th>Calificación</th>
@@ -203,8 +211,7 @@ $reviews = fetchUserReviews($db, $user_id);
                             <tbody>
                                 <?php foreach ($reviews as $review): ?>
                                     <tr>
-                                        <td><?= $review['id']; ?></td>
-                                        <td><?= $review['space_id']; ?></td>
+                                        <td><?= $review['space_title']; ?></td>
                                         <td><?= $review['comment']; ?></td>
                                         <td><?= $review['rating']; ?></td>
                                         <td>
@@ -223,11 +230,18 @@ $reviews = fetchUserReviews($db, $user_id);
 
 
     <!-- Bootstrap JS -->
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/app.js"></script>
+    <script src="/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/app.js"></script>
 
 
 </body>
+<style>
+@media (max-width: 768px) {
+    h3 {
+        margin-top: 20px; /* Ajusta el valor según sea necesario */
+    }
+}
+</style>
 
 
 
